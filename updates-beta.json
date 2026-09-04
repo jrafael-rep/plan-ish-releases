@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.12",
+  "recommended": "1.9.0-beta.13",
   "releases": [
+    {
+      "version": "1.9.0-beta.13",
+      "versionCode": 24,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "Mapa com zoom de detalhe, reports corrigidos e navegação mais simples.\n\n- O mapa aproxima até ao detalhe das ruas e permite enquadrar cada dia.\n- Reports: captura corrigida, exportação mesmo sem imagem e opção para copiar os logs.\n- Menu reduzido, viagem principal à escolha e botão para continuar a viagem iniciada.\n- Em viagem: situação atual, próximas duas paragens e posição aproximada no percurso quando o GPS o permite.\n- Meteorologia mais curta nos cartões; melhorias na procura de algumas fotografias.\n\nAs fotografias ainda precisam de confirmação no Poco. Se falharem, liga os logs, repete a pesquisa e usa “Copiar descrição e logs” no botão do inseto.\n\nValidação: 990 testes aprovados, 4 ignorados, tipos e bundle Android verificados. O uso real do GPS e a apresentação no Poco continuam a precisar do teu teste.",
+      "publishedAt": "2026-09-04T15:57:42Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.13/plan-ish-v1.9.0-beta.13.apk",
+      "apkSize": 32015482,
+      "sha256": "6ce14cd4ad80162d1424b1db4e7f70370c5d7e7f3ca5c0154e783547ef042252"
+    },
     {
       "version": "1.9.0-beta.12",
       "versionCode": 23,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "Tutorial, menus simplificados e reports de problemas com captura e logs.\n\n- Tutorial guiado para criar, editar e importar planos, com opção de sair e recomeçar nas definições.\n- Biblioteca como ecrã principal, menu geral sempre acessível e navegação de regresso sem ecrãs repetidos.\n- Exemplo opcional de três dias para adaptar à tua viagem.\n- Botão de report nas betas: captura do ecrã, descrição e logs recentes num único ficheiro.\n- Notas de versão resumidas no ecrã, com opção de expandir.\n\nPara reportar o problema das fotografias: liga Logs de debug nas definições, repete a procura de uma foto, toca no botão 🐞, escreve o que aconteceu e exporta o report. Confere a captura antes de a partilhares.\n\nA falha das fotografias reportada no Poco continua em investigação; esta versão acrescenta diagnóstico, sem a dar como resolvida. Os exemplos já não são repostos automaticamente ao abrir a app.\n\nValidação: 983 testes aprovados, tipos e pacote Android verificados. Captura, gestos e navegação no Poco ainda precisam de confirmação.",
       "publishedAt": "2026-09-04T11:51:55Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.12/plan-ish-v1.9.0-beta.12.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.5/plan-ish-v1.9.0-beta.5.apk",
       "apkSize": 31817104,
       "sha256": "d68b07d0f3b03cdf1a68bb8041aba969fa915957892accd2584b23318e30c642"
-    },
-    {
-      "version": "1.9.0-beta.4",
-      "versionCode": 15,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.2...v1.9.0-beta.4",
-      "publishedAt": "2026-09-03T21:33:57Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.4/plan-ish-v1.9.0-beta.4.apk",
-      "apkSize": 31739844,
-      "sha256": "cc171b1e12a18e5d37b82416e4030c785dd95906fbebf4b45fb35118f56f4c95"
     }
   ]
 }
