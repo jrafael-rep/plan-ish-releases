@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.9",
+  "recommended": "1.9.0-beta.10",
   "releases": [
+    {
+      "version": "1.9.0-beta.10",
+      "versionCode": 21,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.9...v1.9.0-beta.10",
+      "publishedAt": "2026-09-04T10:00:19Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.10/plan-ish-v1.9.0-beta.10.apk",
+      "apkSize": 31756650,
+      "sha256": "ecca4609ccfce6f6e0c586da14af143f3ac2293afb38e3c413074c333effc681"
+    },
     {
       "version": "1.9.0-beta.9",
       "versionCode": 20,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.8...v1.9.0-beta.9",
       "publishedAt": "2026-09-04T09:34:22Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.9/plan-ish-v1.9.0-beta.9.apk",
