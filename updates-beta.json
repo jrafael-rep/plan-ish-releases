@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.10",
+  "recommended": "1.9.0-beta.11",
   "releases": [
+    {
+      "version": "1.9.0-beta.11",
+      "versionCode": 22,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "- Mapa em imagem com zoom, paragens e percursos medidos, guardado para uso offline.\n- Correção das miniaturas Wikimedia que a beta.10 rejeitava.\n- Atualização conjunta: distâncias, mapa, meteorologia por paragem e fotografias em falta. As fotos existentes e as escolhidas no telemóvel são preservadas.\n- Previsão horária no cartão e aviso de chuva na timeline; sem previsão inventada fora das datas disponíveis.\n\nDefinições sem pedidos de chaves pessoais; as atualizações mostram as novidades da versão.\n\nDepois de instalar, abre a timeline e escolhe Medir percursos. Não é necessário configurar uma chave na app.\n\nValidação: 966 testes aprovados, tipos e bundle Android verificados; pedidos reais de mapa, percurso, miniatura e meteorologia confirmados. A apresentação e os gestos no Poco ainda precisam de confirmação.",
+      "publishedAt": "2026-09-04T11:05:18Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.11/plan-ish-v1.9.0-beta.11.apk",
+      "apkSize": 31936650,
+      "sha256": "ab9a3d47bf2f229ff33052d755b740f33e03efe22b40d93cfa02ab133524a226"
+    },
     {
       "version": "1.9.0-beta.10",
       "versionCode": 21,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.9...v1.9.0-beta.10",
       "publishedAt": "2026-09-04T10:00:19Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.10/plan-ish-v1.9.0-beta.10.apk",
