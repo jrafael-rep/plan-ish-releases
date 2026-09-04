@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.11",
+  "recommended": "1.9.0-beta.12",
   "releases": [
+    {
+      "version": "1.9.0-beta.12",
+      "versionCode": 23,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "Tutorial, menus simplificados e reports de problemas com captura e logs.\n\n- Tutorial guiado para criar, editar e importar planos, com opção de sair e recomeçar nas definições.\n- Biblioteca como ecrã principal, menu geral sempre acessível e navegação de regresso sem ecrãs repetidos.\n- Exemplo opcional de três dias para adaptar à tua viagem.\n- Botão de report nas betas: captura do ecrã, descrição e logs recentes num único ficheiro.\n- Notas de versão resumidas no ecrã, com opção de expandir.\n\nPara reportar o problema das fotografias: liga Logs de debug nas definições, repete a procura de uma foto, toca no botão 🐞, escreve o que aconteceu e exporta o report. Confere a captura antes de a partilhares.\n\nA falha das fotografias reportada no Poco continua em investigação; esta versão acrescenta diagnóstico, sem a dar como resolvida. Os exemplos já não são repostos automaticamente ao abrir a app.\n\nValidação: 983 testes aprovados, tipos e pacote Android verific",
+      "publishedAt": "2026-09-04T11:51:55Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.12/plan-ish-v1.9.0-beta.12.apk",
+      "apkSize": 31990874,
+      "sha256": "f8fc7e0dcccc3e2af6779cc03e170e586f96337b47744306c996dbf205dd56cb"
+    },
     {
       "version": "1.9.0-beta.11",
       "versionCode": 22,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "- Mapa em imagem com zoom, paragens e percursos medidos, guardado para uso offline.\n- Correção das miniaturas Wikimedia que a beta.10 rejeitava.\n- Atualização conjunta: distâncias, mapa, meteorologia por paragem e fotografias em falta. As fotos existentes e as escolhidas no telemóvel são preservadas.\n- Previsão horária no cartão e aviso de chuva na timeline; sem previsão inventada fora das datas disponíveis.\n\nDefinições sem pedidos de chaves pessoais; as atualizações mostram as novidades da versão.\n\nDepois de instalar, abre a timeline e escolhe Medir percursos. Não é necessário configurar uma chave na app.\n\nValidação: 966 testes aprovados, tipos e bundle Android verificados; pedidos reais de mapa, percurso, miniatura e meteorologia confirmados. A apresentação e os gestos no Poco ainda precisam de confirmação.",
       "publishedAt": "2026-09-04T11:05:18Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.11/plan-ish-v1.9.0-beta.11.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.4/plan-ish-v1.9.0-beta.4.apk",
       "apkSize": 31739844,
       "sha256": "cc171b1e12a18e5d37b82416e4030c785dd95906fbebf4b45fb35118f56f4c95"
-    },
-    {
-      "version": "1.9.0-beta.2",
-      "versionCode": 13,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.1...v1.9.0-beta.2",
-      "publishedAt": "2026-09-03T17:25:01Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.2/plan-ish-v1.9.0-beta.2.apk",
-      "apkSize": 31703728,
-      "sha256": "e0380d8f1db661b00243411d6cd9e0ac57f798d272fd4937b4460ed210ba191f"
     }
   ]
 }
