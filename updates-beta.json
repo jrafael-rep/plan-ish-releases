@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.8",
+  "recommended": "1.9.0-beta.9",
   "releases": [
+    {
+      "version": "1.9.0-beta.9",
+      "versionCode": 20,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.8...v1.9.0-beta.9",
+      "publishedAt": "2026-09-04T09:34:22Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.9/plan-ish-v1.9.0-beta.9.apk",
+      "apkSize": 31734206,
+      "sha256": "ce655c17a3abb8c5a97b00de05ae7dbed1f609b11bb7345496c326d3b1b1604c"
+    },
     {
       "version": "1.9.0-beta.8",
       "versionCode": 19,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "## What's Changed\n* Keep MapView mounted until tiles load; use onMapLoaded and show slow-loading notice by @jrafael-rep in https://github.com/jrafael-rep/Triptracker/pull/2\n\n## New Contributors\n* @jrafael-rep made their first contribution in https://github.com/jrafael-rep/Triptracker/pull/2\n\n**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.7...v1.9.0-beta.8",
       "publishedAt": "2026-09-04T08:54:51Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.8/plan-ish-v1.9.0-beta.8.apk",
