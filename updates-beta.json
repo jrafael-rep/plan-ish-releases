@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.13",
+  "recommended": "1.9.0-beta.14",
   "releases": [
+    {
+      "version": "1.9.0-beta.14",
+      "versionCode": 25,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "Imagens de identificação fiáveis para os cartões das paragens.\n\n- Aceita o mesmo local quando um serviço devolve o centro do edifício e outro a entrada.\n- Continua a usar primeiro uma fotografia livre explicitamente associada ao local.\n- Se não existir fotografia, guarda uma imagem de mapa desse ponto em cada cartão.\n- A imagem de mapa pode ser substituída por uma foto do telemóvel e continua a procurar uma fotografia real em atualizações futuras.\n- O resumo da atualização distingue fotografias, mapas e locais sem imagem.\n\nA chave Geoapify fica apenas na versão compilada; não é guardada nas imagens, nos planos ou nos reports. Atribuição do mapa acessível no cartão.\n\nValidação: 992 testes aprovados, 4 ignorados, tipos e bundle Android verificados. A apresentação das novas imagens ainda precisa de confirmação no Poco.",
+      "publishedAt": "2026-09-05T07:02:45Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.14/plan-ish-v1.9.0-beta.14.apk",
+      "apkSize": 32020970,
+      "sha256": "6e2107ac23e70ba8232b1dcd7f01be8618f28cbcd315e21d1373e32eed9a9cfb"
+    },
     {
       "version": "1.9.0-beta.13",
       "versionCode": 24,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "Mapa com zoom de detalhe, reports corrigidos e navegação mais simples.\n\n- O mapa aproxima até ao detalhe das ruas e permite enquadrar cada dia.\n- Reports: captura corrigida, exportação mesmo sem imagem e opção para copiar os logs.\n- Menu reduzido, viagem principal à escolha e botão para continuar a viagem iniciada.\n- Em viagem: situação atual, próximas duas paragens e posição aproximada no percurso quando o GPS o permite.\n- Meteorologia mais curta nos cartões; melhorias na procura de algumas fotografias.\n\nAs fotografias ainda precisam de confirmação no Poco. Se falharem, liga os logs, repete a pesquisa e usa “Copiar descrição e logs” no botão do inseto.\n\nValidação: 990 testes aprovados, 4 ignorados, tipos e bundle Android verificados. O uso real do GPS e a apresentação no Poco continuam a precisar do teu teste.",
       "publishedAt": "2026-09-04T15:57:42Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.13/plan-ish-v1.9.0-beta.13.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.7/plan-ish-v1.9.0-beta.7.apk",
       "apkSize": 31731746,
       "sha256": "856f49568d03c42630efb38e6e4e5b51500f75fb77a1290fbb42187a7ccf3e95"
-    },
-    {
-      "version": "1.9.0-beta.5",
-      "versionCode": 16,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.4...v1.9.0-beta.5",
-      "publishedAt": "2026-09-03T23:13:41Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.5/plan-ish-v1.9.0-beta.5.apk",
-      "apkSize": 31817104,
-      "sha256": "d68b07d0f3b03cdf1a68bb8041aba969fa915957892accd2584b23318e30c642"
     }
   ]
 }
