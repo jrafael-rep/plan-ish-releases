@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.15",
+  "recommended": "1.9.0-beta.16",
   "releases": [
+    {
+      "version": "1.9.0-beta.16",
+      "versionCode": 27,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "- Os reports beta podem ser guardados diretamente numa pasta visível do telemóvel.\n- Na primeira vez, o Android pede para confirmar Downloads; as gravações seguintes usam essa pasta automaticamente.\n- Partilhar o report continua disponível como uma ação separada.",
+      "publishedAt": "2026-09-05T07:45:50Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.16/plan-ish-v1.9.0-beta.16.apk",
+      "apkSize": 31963362,
+      "sha256": "231f734ea822ca6bbd09350fd24069fae7807e0a5c154646d3545d69f8582205"
+    },
     {
       "version": "1.9.0-beta.15",
       "versionCode": 26,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "- O mapa abre diretamente na imagem guardada e mantém uma base visível enquanto carrega o detalhe do zoom.\n- Duração e velocidade média contam apenas períodos com movimento; pausas longas, incluindo a noite, ficam de fora.\n- Os relatórios beta passam a distinguir a transferência do mapa da apresentação da imagem no ecrã.",
       "publishedAt": "2026-09-05T07:25:49Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.15/plan-ish-v1.9.0-beta.15.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.9/plan-ish-v1.9.0-beta.9.apk",
       "apkSize": 31734206,
       "sha256": "ce655c17a3abb8c5a97b00de05ae7dbed1f609b11bb7345496c326d3b1b1604c"
-    },
-    {
-      "version": "1.9.0-beta.8",
-      "versionCode": 19,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "## What's Changed\n* Keep MapView mounted until tiles load; use onMapLoaded and show slow-loading notice by @jrafael-rep in https://github.com/jrafael-rep/Triptracker/pull/2\n\n## New Contributors\n* @jrafael-rep made their first contribution in https://github.com/jrafael-rep/Triptracker/pull/2\n\n**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.7...v1.9.0-beta.8",
-      "publishedAt": "2026-09-04T08:54:51Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.8/plan-ish-v1.9.0-beta.8.apk",
-      "apkSize": 31730534,
-      "sha256": "db1f51ef7cc0238ebe92b83bb93a1a1d7b44e3364417cc98f9bfb4fec6f53480"
     }
   ]
 }
