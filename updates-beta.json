@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.16",
+  "recommended": "1.9.0-beta.17",
   "releases": [
+    {
+      "version": "1.9.0-beta.17",
+      "versionCode": 28,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "- As horas da viagem usam agora o fuso horário do telemóvel, incluindo registos guardados por betas anteriores.\n- Atualizar meteorologia, estimativas e fotos passa também a guardar horários e contactos disponíveis para cada local.\n- A timeline e a paragem avisam quando o local estará fechado ou poderá fechar durante a visita.\n- Durante uma viagem, um atraso pode avisar quando faltarem 30 minutos ou menos para o local fechar.\n- Quando não existe uma fotografia livre do local, mantém-se a imagem de mapa que pode ser substituída por uma foto do telemóvel.",
+      "publishedAt": "2026-09-05T17:52:30Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.17/plan-ish-v1.9.0-beta.17.apk",
+      "apkSize": 31974402,
+      "sha256": "e330ba09431f87d3c2bd950d4ddf5a8b05ff2ac5259463f29cafb7893914c37f"
+    },
     {
       "version": "1.9.0-beta.16",
       "versionCode": 27,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "- Os reports beta podem ser guardados diretamente numa pasta visível do telemóvel.\n- Na primeira vez, o Android pede para confirmar Downloads; as gravações seguintes usam essa pasta automaticamente.\n- Partilhar o report continua disponível como uma ação separada.",
       "publishedAt": "2026-09-05T07:45:50Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.16/plan-ish-v1.9.0-beta.16.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.10/plan-ish-v1.9.0-beta.10.apk",
       "apkSize": 31756650,
       "sha256": "ecca4609ccfce6f6e0c586da14af143f3ac2293afb38e3c413074c333effc681"
-    },
-    {
-      "version": "1.9.0-beta.9",
-      "versionCode": 20,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.8...v1.9.0-beta.9",
-      "publishedAt": "2026-09-04T09:34:22Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.9/plan-ish-v1.9.0-beta.9.apk",
-      "apkSize": 31734206,
-      "sha256": "ce655c17a3abb8c5a97b00de05ae7dbed1f609b11bb7345496c326d3b1b1604c"
     }
   ]
 }
