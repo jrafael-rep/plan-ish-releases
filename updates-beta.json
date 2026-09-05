@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.14",
+  "recommended": "1.9.0-beta.15",
   "releases": [
+    {
+      "version": "1.9.0-beta.15",
+      "versionCode": 26,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "- O mapa abre diretamente na imagem guardada e mantém uma base visível enquanto carrega o detalhe do zoom.\n- Duração e velocidade média contam apenas períodos com movimento; pausas longas, incluindo a noite, ficam de fora.\n- Os relatórios beta passam a distinguir a transferência do mapa da apresentação da imagem no ecrã.",
+      "publishedAt": "2026-09-05T07:25:49Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.15/plan-ish-v1.9.0-beta.15.apk",
+      "apkSize": 31959390,
+      "sha256": "84d6b101e94f8cb7513849b66356721b61da3ef7b4bfd6400d8242eb1f5619a4"
+    },
     {
       "version": "1.9.0-beta.14",
       "versionCode": 25,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "Imagens de identificação fiáveis para os cartões das paragens.\n\n- Aceita o mesmo local quando um serviço devolve o centro do edifício e outro a entrada.\n- Continua a usar primeiro uma fotografia livre explicitamente associada ao local.\n- Se não existir fotografia, guarda uma imagem de mapa desse ponto em cada cartão.\n- A imagem de mapa pode ser substituída por uma foto do telemóvel e continua a procurar uma fotografia real em atualizações futuras.\n- O resumo da atualização distingue fotografias, mapas e locais sem imagem.\n\nA chave Geoapify fica apenas na versão compilada; não é guardada nas imagens, nos planos ou nos reports. Atribuição do mapa acessível no cartão.\n\nValidação: 992 testes aprovados, 4 ignorados, tipos e bundle Android verificados. A apresentação das novas imagens ainda precisa de confirmação no Poco.",
       "publishedAt": "2026-09-05T07:02:45Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.14/plan-ish-v1.9.0-beta.14.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.8/plan-ish-v1.9.0-beta.8.apk",
       "apkSize": 31730534,
       "sha256": "db1f51ef7cc0238ebe92b83bb93a1a1d7b44e3364417cc98f9bfb4fec6f53480"
-    },
-    {
-      "version": "1.9.0-beta.7",
-      "versionCode": 18,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.6...v1.9.0-beta.7",
-      "publishedAt": "2026-09-04T02:34:48Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.7/plan-ish-v1.9.0-beta.7.apk",
-      "apkSize": 31731746,
-      "sha256": "856f49568d03c42630efb38e6e4e5b51500f75fb77a1290fbb42187a7ccf3e95"
     }
   ]
 }
