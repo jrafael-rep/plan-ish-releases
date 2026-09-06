@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.22",
+  "recommended": "1.9.0-beta.23",
   "releases": [
+    {
+      "version": "1.9.0-beta.23",
+      "versionCode": 34,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "- O tutorial aparece uma vez, segue a Timeline atual e pode ser recomeçado nas definições.\n- Uma viagem nova usa o fuso horário do telemóvel; a alteração fica em Mais opções.\n- O início da viagem mostra uma ação clara e os controlos principais estão preparados para leitores de ecrã.",
+      "publishedAt": "2026-09-06T23:28:10Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.23/plan-ish-v1.9.0-beta.23.apk",
+      "apkSize": 32000054,
+      "sha256": "86c605ef4946ab0b35bd1873d1c6cbc85dd55f09fc8461655260000e02bad268"
+    },
     {
       "version": "1.9.0-beta.22",
       "versionCode": 33,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "- O Mapa mostra os controlos de uso diário e guarda as estatísticas em Detalhes.\n- As definições gerais estão mais curtas e deixam de repetir atalhos ou nomes técnicos.\n- Exportação, registo GPS e ferramentas de teste ficam organizados nas opções da viagem.",
       "publishedAt": "2026-09-06T23:19:27Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.22/plan-ish-v1.9.0-beta.22.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.16/plan-ish-v1.9.0-beta.16.apk",
       "apkSize": 31963362,
       "sha256": "231f734ea822ca6bbd09350fd24069fae7807e0a5c154646d3545d69f8582205"
-    },
-    {
-      "version": "1.9.0-beta.15",
-      "versionCode": 26,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "- O mapa abre diretamente na imagem guardada e mantém uma base visível enquanto carrega o detalhe do zoom.\n- Duração e velocidade média contam apenas períodos com movimento; pausas longas, incluindo a noite, ficam de fora.\n- Os relatórios beta passam a distinguir a transferência do mapa da apresentação da imagem no ecrã.",
-      "publishedAt": "2026-09-05T07:25:49Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.15/plan-ish-v1.9.0-beta.15.apk",
-      "apkSize": 31959390,
-      "sha256": "84d6b101e94f8cb7513849b66356721b61da3ef7b4bfd6400d8242eb1f5619a4"
     }
   ]
 }
