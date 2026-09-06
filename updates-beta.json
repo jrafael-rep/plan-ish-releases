@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.19",
+  "recommended": "1.9.0-beta.20",
   "releases": [
+    {
+      "version": "1.9.0-beta.20",
+      "versionCode": 31,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "- A Timeline está mais limpa: cada paragem mostra apenas hora, duração e o estado que interessa.\n- Mapa, Checklist e Ideias ficam nas quatro tabs, sem atalhos repetidos.\n- As opções menos usadas ficam em Mais opções; os detalhes continuam disponíveis quando pedidos.",
+      "publishedAt": "2026-09-06T22:44:30Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.20/plan-ish-v1.9.0-beta.20.apk",
+      "apkSize": 31970154,
+      "sha256": "c536883a162aea19888216fbb33443503f313c6c7b6f8d6f86ab9188531c6d62"
+    },
     {
       "version": "1.9.0-beta.19",
       "versionCode": 30,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "Agora a Timeline acompanha a viagem antes e durante o percurso.\nCheguei e Terminei registam a hora imediatamente; Corrigir permite ajustar depois.\nO último passo termina mesmo a viagem e pára o registo GPS antes do resumo.",
       "publishedAt": "2026-09-06T07:11:28Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.19/plan-ish-v1.9.0-beta.19.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.13/plan-ish-v1.9.0-beta.13.apk",
       "apkSize": 32015482,
       "sha256": "6ce14cd4ad80162d1424b1db4e7f70370c5d7e7f3ca5c0154e783547ef042252"
-    },
-    {
-      "version": "1.9.0-beta.12",
-      "versionCode": 23,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "Tutorial, menus simplificados e reports de problemas com captura e logs.\n\n- Tutorial guiado para criar, editar e importar planos, com opção de sair e recomeçar nas definições.\n- Biblioteca como ecrã principal, menu geral sempre acessível e navegação de regresso sem ecrãs repetidos.\n- Exemplo opcional de três dias para adaptar à tua viagem.\n- Botão de report nas betas: captura do ecrã, descrição e logs recentes num único ficheiro.\n- Notas de versão resumidas no ecrã, com opção de expandir.\n\nPara reportar o problema das fotografias: liga Logs de debug nas definições, repete a procura de uma foto, toca no botão 🐞, escreve o que aconteceu e exporta o report. Confere a captura antes de a partilhares.\n\nA falha das fotografias reportada no Poco continua em investigação; esta versão acrescenta diagnóstico, sem a dar como resolvida. Os exemplos já não são repostos automaticamente ao abrir a app.\n\nValidação: 983 testes aprovados, tipos e pacote Android verificados. Captura, gestos e navegação no Poco ainda precisam de confirmação.",
-      "publishedAt": "2026-09-04T11:51:55Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.12/plan-ish-v1.9.0-beta.12.apk",
-      "apkSize": 31990874,
-      "sha256": "f8fc7e0dcccc3e2af6779cc03e170e586f96337b47744306c996dbf205dd56cb"
     }
   ]
 }
