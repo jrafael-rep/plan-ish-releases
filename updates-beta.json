@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.24",
+  "recommended": "1.9.0-beta.25",
   "releases": [
+    {
+      "version": "1.9.0-beta.25",
+      "versionCode": 36,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "## What's Changed\n* Store readiness: a Google Play channel beside the APK beta by @jrafael-rep in https://github.com/jrafael-rep/Triptracker/pull/3\n\n\n**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.24...v1.9.0-beta.25",
+      "publishedAt": "2026-09-07T22:58:04Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.25/plan-ish-v1.9.0-beta.25.apk",
+      "apkSize": 32029202,
+      "sha256": "54fa23c094cbb08465e94f5dc24529346bfc704ef68468ec2ae79fc3bd5fdf57"
+    },
     {
       "version": "1.9.0-beta.24",
       "versionCode": 35,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "- O resumo permite voltar à Timeline para acrescentar paragens esquecidas e corrigir as horas reais.\n- Corrigir uma viagem terminada mantém a execução fechada e o registo GPS desligado.\n- As exportações são guardadas no telemóvel; Descarregar tudo cria os cinco ficheiros com uma única escolha de pasta.",
       "publishedAt": "2026-09-07T11:18:48Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.24/plan-ish-v1.9.0-beta.24.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.18/plan-ish-v1.9.0-beta.18.apk",
       "apkSize": 31981070,
       "sha256": "edf99a2d21c51623426c227dbfda820cf0314e0081c9c2b7157111b8bc5d96a0"
-    },
-    {
-      "version": "1.9.0-beta.17",
-      "versionCode": 28,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "- As horas da viagem usam agora o fuso horário do telemóvel, incluindo registos guardados por betas anteriores.\n- Atualizar meteorologia, estimativas e fotos passa também a guardar horários e contactos disponíveis para cada local.\n- A timeline e a paragem avisam quando o local estará fechado ou poderá fechar durante a visita.\n- Durante uma viagem, um atraso pode avisar quando faltarem 30 minutos ou menos para o local fechar.\n- Quando não existe uma fotografia livre do local, mantém-se a imagem de mapa que pode ser substituída por uma foto do telemóvel.",
-      "publishedAt": "2026-09-05T17:52:30Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.17/plan-ish-v1.9.0-beta.17.apk",
-      "apkSize": 31974402,
-      "sha256": "e330ba09431f87d3c2bd950d4ddf5a8b05ff2ac5259463f29cafb7893914c37f"
     }
   ]
 }
