@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de Privacidade — Plan-ish</title>
+<link rel="alternate" hreflang="en" href="privacy.en.html">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #ffffff; --fg: #16191d; --muted: #5a6169;
+    --line: #e2e5e9; --accent: #0d7d5a; --card: #f6f8f9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1116; --fg: #e8ebee; --muted: #9aa3ad;
+      --line: #262c34; --accent: #3ddc97; --card: #161b22;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 2rem 1.25rem 5rem;
+    background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 44rem; margin: 0 auto; }
+  h1 { font-size: 1.75rem; line-height: 1.25; margin: 0 0 .25rem; }
+  h2 { font-size: 1.15rem; margin: 2.5rem 0 .5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+  h2:first-of-type { border-top: 0; padding-top: 0; }
+  h3 { font-size: 1rem; margin: 1.5rem 0 .35rem; }
+  p, li { margin: .6rem 0; }
+  ul { padding-left: 1.25rem; }
+  .lede { color: var(--muted); margin-bottom: 2rem; }
+  .updated { color: var(--muted); font-size: .875rem; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: .6rem; padding: 1rem 1.15rem; margin: 1.25rem 0; }
+  .card p:first-child { margin-top: 0; }
+  .card p:last-child { margin-bottom: 0; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .925rem; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; }
+  .scroll { overflow-x: auto; }
+  a { color: var(--accent); }
+  footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .875rem; }
+  strong { font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Política de Privacidade do Plan-ish</h1>
+<p class="lede">
+  Aplicação Android <strong>Plan-ish</strong> (<code>com.jrafael.gerestracker</code>),
+  publicada por <strong>Jrafa</strong>.
+  <a href="privacy.en.html">English version</a>.
+</p>
+<p class="updated">Última atualização: 7 de setembro de 2026.</p>
+
+<div class="card">
+  <p><strong>Em resumo.</strong> O Plan-ish não tem contas, não tem publicidade
+  e não recolhe nada sobre ti para nós. Não existe servidor do Plan-ish: as tuas
+  viagens, o percurso registado e tudo o que escreves ficam guardados apenas no
+  teu telemóvel.</p>
+  <p>Durante uma viagem a decorrer, a app usa a tua localização — incluindo
+  quando está em segundo plano ou com o ecrã bloqueado — para acompanhar o
+  percurso e detetar chegadas. Esse registo <strong>não sai do
+  telemóvel</strong>.</p>
+</div>
+
+<h2>Quem somos</h2>
+<p>
+  O Plan-ish é desenvolvido e publicado por Jrafa. Para qualquer
+  questão sobre privacidade ou sobre os teus dados, o contacto está no fim
+  desta página.
+</p>
+
+<h2>O que fica apenas no teu telemóvel</h2>
+<p>
+  Tudo isto é guardado numa base de dados dentro da própria aplicação. Não é
+  enviado para nenhum servidor, nosso ou de terceiros, e nós não lhe temos
+  acesso:
+</p>
+<ul>
+  <li>as tuas viagens, planos, dias e paragens;</li>
+  <li>o <strong>percurso GPS registado</strong> durante uma viagem;</li>
+  <li>as horas de chegada e de partida detetadas ou marcadas por ti;</li>
+  <li>listas de material, participantes e responsabilidades;</li>
+  <li>os teus lugares guardados e ideias de viagem;</li>
+  <li>notas, descrições e fotografias que associes a uma paragem;</li>
+  <li>as tuas definições, incluindo chaves de serviços que tenhas configurado.</li>
+</ul>
+<p>
+  Se desinstalares a aplicação, estes dados são apagados com ela. Não temos
+  cópia e não há nada para nós recuperarmos.
+</p>
+
+<h2>Localização</h2>
+
+<h3>Enquanto uma viagem está a decorrer</h3>
+<p>
+  Quando inicias uma viagem, e só depois de a autorizares, o Plan-ish acede à
+  tua localização para:
+</p>
+<ul>
+  <li>registar o percurso da viagem;</li>
+  <li>detetar automaticamente quando chegas e quando sais de cada paragem;</li>
+  <li>atualizar as horas previstas para as paragens seguintes;</li>
+  <li>mostrar onde estás em relação ao plano.</li>
+</ul>
+<p>
+  <strong>Isto pode acontecer com a aplicação em segundo plano ou fechada</strong>,
+  nos telemóveis em que o Android o permite. É essa a razão para o Plan-ish pedir
+  acesso à localização "sempre": sem isso, o percurso deixaria de ser registado
+  assim que mudasses de aplicação ou bloqueasses o ecrã, que é precisamente
+  quando estás a viajar.
+</p>
+<p>
+  Enquanto isto está ativo, o Android mostra uma notificação permanente do
+  Plan-ish. <strong>O acompanhamento termina quando terminas a viagem</strong>,
+  e não recomeça sozinho.
+</p>
+
+<h3>Precisão</h3>
+<p>
+  A app usa localização aproximada e precisa. A precisa é necessária para
+  distinguir chegadas a locais próximos uns dos outros.
+</p>
+
+<h3>O que acontece ao registo</h3>
+<p>
+  O percurso registado e a tua posição atual <strong>ficam no telemóvel</strong>.
+  Não são enviados para nenhum servidor, não são usados para publicidade, não
+  são partilhados com terceiros e não são vendidos. O cálculo do tempo que falta
+  para a próxima paragem é feito dentro do telemóvel, sem enviar a tua posição a
+  ninguém.
+</p>
+
+<h3>Uma exceção que deves conhecer</h3>
+<p>
+  Se usares a opção de <em>guardar uma paragem no sítio onde estás agora</em>,
+  essas coordenadas passam a fazer parte do teu plano, como qualquer outra
+  paragem. A partir daí, e apenas se pedires meteorologia, tempos de viagem, o
+  mapa ou fotografias para essa paragem, essas coordenadas são enviadas aos
+  serviços listados abaixo — tal como as de uma paragem que tivesses escrito à
+  mão.
+</p>
+
+<h2>Se recusares</h2>
+<p>
+  A aplicação continua a funcionar. Sem acesso em segundo plano, o
+  acompanhamento funciona apenas com a app aberta. Sem qualquer acesso à
+  localização, a viagem funciona como plano e marcas as chegadas à mão. A app
+  diz-te o que fica reduzido, em vez de falhar em silêncio.
+</p>
+
+<h2>Serviços externos</h2>
+<p>
+  Algumas funcionalidades precisam de informação que não está no telemóvel.
+  Nesses casos o Plan-ish contacta os serviços abaixo. O que é enviado são
+  <strong>coordenadas de paragens do teu plano ou o texto que escreveste numa
+  pesquisa</strong> — nunca o percurso registado nem a tua posição em tempo real.
+</p>
+<div class="scroll">
+<table>
+  <thead><tr><th>Serviço</th><th>O que é enviado</th><th>Quando</th></tr></thead>
+  <tbody>
+    <tr><td>Open-Meteo</td><td>coordenadas de uma paragem e datas</td><td>meteorologia de uma paragem</td></tr>
+    <tr><td>Google Maps</td><td>a zona do mapa a mostrar</td><td>quando abres o mapa</td></tr>
+    <tr><td>Google Routes</td><td>coordenadas de duas paragens</td><td>tempo de viagem medido</td></tr>
+    <tr><td>Google Places</td><td>texto de pesquisa ou identificador de um local</td><td>detalhes de um lugar</td></tr>
+    <tr><td>Geoapify</td><td>coordenadas de paragens</td><td>imagem do mapa e rotas</td></tr>
+    <tr><td>OpenRouteService</td><td>coordenadas de duas paragens</td><td>tempo de viagem, com chave tua</td></tr>
+    <tr><td>Nominatim (OpenStreetMap)</td><td>texto de pesquisa, ou coordenadas a converter em morada</td><td>procurar um lugar</td></tr>
+    <tr><td>Wikidata e Wikimedia Commons</td><td>nome ou coordenadas de um lugar</td><td>fotografias de licença livre</td></tr>
+    <tr><td>GitHub</td><td>nada sobre ti</td><td>procurar e transferir atualizações</td></tr>
+  </tbody>
+</table>
+</div>
+<p>
+  Cada um destes serviços tem a sua própria política de privacidade e recebe o
+  teu endereço IP, como acontece em qualquer ligação à internet. O Plan-ish não
+  lhes envia qualquer identificador teu, porque não tem nenhum.
+</p>
+<p>
+  A versão instalada pela Google Play Store não contacta o GitHub: as
+  atualizações são tratadas pela própria Play Store.
+</p>
+
+<h2>Quando és tu a enviar</h2>
+<p>
+  O Plan-ish permite exportar uma viagem (JSON, CSV, GPX, Markdown) e, nas
+  versões de teste, exportar um relatório de diagnóstico. Estes ficheiros podem
+  conter coordenadas, e um relatório pode incluir uma imagem do ecrã.
+</p>
+<p>
+  <strong>Nada disto é enviado para nós.</strong> O ficheiro é guardado na pasta
+  que escolheres ou entregue à aplicação que escolheres no menu de partilha do
+  Android. A partir daí o destino é a tua decisão.
+</p>
+
+<h2>O que não existe</h2>
+<ul>
+  <li>Não há contas nem início de sessão. Não sabemos quem tu és.</li>
+  <li>Não há publicidade e nenhum dado é usado para publicidade.</li>
+  <li>Não há analítica, medição de utilização nem relatórios automáticos de erros.</li>
+  <li>Não vendemos nem partilhamos dados com terceiros para fins comerciais.</li>
+  <li>Não há servidor do Plan-ish onde os teus dados possam estar.</li>
+</ul>
+
+<h2>Crianças</h2>
+<p>
+  O Plan-ish não se destina a crianças e não recolhe conscientemente dados de
+  menores. Como não existe qualquer recolha de dados pessoais do nosso lado,
+  não há informação de menores em nosso poder.
+</p>
+
+<h2>Os teus dados e os teus direitos</h2>
+<p>
+  Os dados estão no teu telemóvel e sob o teu controlo direto. Podes exportá-los
+  a qualquer momento pela função de exportação, apagar uma viagem dentro da app,
+  ou apagar tudo limpando os dados da aplicação nas definições do Android ou
+  desinstalando-a.
+</p>
+<p>
+  Como não recebemos nem armazenamos dados pessoais teus, não temos nada para
+  aceder, corrigir ou apagar a teu pedido. Se tiveres dúvidas sobre isto,
+  escreve-nos.
+</p>
+
+<h2>Alterações a esta política</h2>
+<p>
+  Se o funcionamento da aplicação mudar de forma que altere o descrito aqui,
+  esta página é atualizada e a data no topo muda com ela.
+</p>
+
+<h2>Contacto</h2>
+<p>
+  <a href="mailto:planish.app@outlook.com">planish.app@outlook.com</a>
+</p>
+
+<footer>
+  Plan-ish · <code>com.jrafael.gerestracker</code> · Jrafa
+</footer>
+
+</main>
+</body>
+</html>
