@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.23",
+  "recommended": "1.9.0-beta.24",
   "releases": [
+    {
+      "version": "1.9.0-beta.24",
+      "versionCode": 35,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.23...v1.9.0-beta.24",
+      "publishedAt": "2026-09-07T11:18:48Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.24/plan-ish-v1.9.0-beta.24.apk",
+      "apkSize": 32007126,
+      "sha256": "329e6f33c8317cfe1e8f6c95b25350559b74adc93e8cf4c9be1febe68f446687"
+    },
     {
       "version": "1.9.0-beta.23",
       "versionCode": 34,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "- O tutorial aparece uma vez, segue a Timeline atual e pode ser recomeçado nas definições.\n- Uma viagem nova usa o fuso horário do telemóvel; a alteração fica em Mais opções.\n- O início da viagem mostra uma ação clara e os controlos principais estão preparados para leitores de ecrã.",
       "publishedAt": "2026-09-06T23:28:10Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.23/plan-ish-v1.9.0-beta.23.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.17/plan-ish-v1.9.0-beta.17.apk",
       "apkSize": 31974402,
       "sha256": "e330ba09431f87d3c2bd950d4ddf5a8b05ff2ac5259463f29cafb7893914c37f"
-    },
-    {
-      "version": "1.9.0-beta.16",
-      "versionCode": 27,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "- Os reports beta podem ser guardados diretamente numa pasta visível do telemóvel.\n- Na primeira vez, o Android pede para confirmar Downloads; as gravações seguintes usam essa pasta automaticamente.\n- Partilhar o report continua disponível como uma ação separada.",
-      "publishedAt": "2026-09-05T07:45:50Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.16/plan-ish-v1.9.0-beta.16.apk",
-      "apkSize": 31963362,
-      "sha256": "231f734ea822ca6bbd09350fd24069fae7807e0a5c154646d3545d69f8582205"
     }
   ]
 }
