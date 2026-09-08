@@ -1,11 +1,22 @@
 {
-  "recommended": "1.9.0-beta.25",
+  "recommended": "1.9.0-beta.27",
   "releases": [
+    {
+      "version": "1.9.0-beta.27",
+      "versionCode": 38,
+      "channel": "beta",
+      "recommended": true,
+      "notes": "**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.25...v1.9.0-beta.27",
+      "publishedAt": "2026-09-08T01:31:16Z",
+      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.27/plan-ish-v1.9.0-beta.27.apk",
+      "apkSize": 32049758,
+      "sha256": "c07014930cbcb405849e1e77b4b5bee41b6757afc819c2cabaa52df69a9f9834"
+    },
     {
       "version": "1.9.0-beta.25",
       "versionCode": 36,
       "channel": "beta",
-      "recommended": true,
+      "recommended": false,
       "notes": "## What's Changed\n* Store readiness: a Google Play channel beside the APK beta by @jrafael-rep in https://github.com/jrafael-rep/Triptracker/pull/3\n\n\n**Full Changelog**: https://github.com/jrafael-rep/Triptracker/compare/v1.9.0-beta.24...v1.9.0-beta.25",
       "publishedAt": "2026-09-07T22:58:04Z",
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.25/plan-ish-v1.9.0-beta.25.apk",
@@ -77,17 +88,6 @@
       "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.19/plan-ish-v1.9.0-beta.19.apk",
       "apkSize": 31971310,
       "sha256": "5dcf1c7201dac218a1ec1220a02c4fb2fa0fc53dc24ac07dedb9e53453801a82"
-    },
-    {
-      "version": "1.9.0-beta.18",
-      "versionCode": 29,
-      "channel": "beta",
-      "recommended": false,
-      "notes": "Timeline passa a ser o início da viagem, com acesso direto a Ideias, Checklist e Mapa.\nAlterar horas ou duração durante a viagem atualiza o alvo atual sem apagar o plano original.\nPrevisões e avisos de atraso passam a comparar com o alvo que escolheste agora.",
-      "publishedAt": "2026-09-06T06:45:54Z",
-      "apkUrl": "https://github.com/jrafael-rep/plan-ish-releases/releases/download/v1.9.0-beta.18/plan-ish-v1.9.0-beta.18.apk",
-      "apkSize": 31981070,
-      "sha256": "edf99a2d21c51623426c227dbfda820cf0314e0081c9c2b7157111b8bc5d96a0"
     }
   ]
 }
