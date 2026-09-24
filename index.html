@@ -49,12 +49,7 @@
     background: var(--surface); border: 1px solid var(--line); border-radius: .9rem;
     padding: 1.5rem 1.35rem;
   }
-  .step .n {
-    width: 2rem; height: 2rem; border-radius: 999px; background: var(--accent-dim);
-    color: var(--accent); font-weight: 800; display: flex; align-items: center;
-    justify-content: center; margin-bottom: .9rem; font-size: .95rem;
-  }
-  .step h3 { margin: 0 0 .4rem; font-size: 1.05rem; }
+  .step h3 { margin: 0 0 .4rem; font-size: 1.05rem; color: var(--accent); }
   .step p { margin: 0; color: var(--muted); font-size: .95rem; }
 
   .screens { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
@@ -96,36 +91,37 @@
   </div>
 
   <section>
-    <h2>Sabe onde estás, sem teres de dizer</h2>
+    <h2>O dia sempre à mão, mesmo quando os planos mudam</h2>
     <p class="lede">
-      Escreves o roteiro do dia — que horas, quanto tempo em cada paragem — e a
-      partir daí o Plan-ish trata do resto: sabe quando chegaste e quando saíste
-      de cada sítio, avisa-te se vais atrasado, e no fim mostra-te a viagem como
-      ela foi. Sem conta, sem publicidade, sem a tua localização a sair do
-      telemóvel.
+      O Plan-ish ajuda a montar o roteiro da viagem, dia a dia, e mantém-te a
+      par dele enquanto viajas: o que vem a seguir, quanto tempo tens e se o
+      dia ainda encaixa. <strong>Não substitui o Google Maps nem o Waze</strong>
+      — para conduzir, o Plan-ish abre a navegação nessas apps. O que faz é o
+      resto: o plano do dia inteiro.
     </p>
     <div class="steps">
       <div class="step">
-        <div class="n">1</div>
-        <h3>Planeia</h3>
-        <p>Escreves as paragens do dia, a que horas e por quanto tempo — à mão, ou a importar um plano que já tenhas.</p>
+        <h3>Roteiro do dia</h3>
+        <p>Paragens, horas e durações — sem um mapa cheio de alfinetes para decifrar.</p>
       </div>
       <div class="step">
-        <div class="n">2</div>
-        <h3>Acompanha</h3>
-        <p>Na estrada, a app segue-te sozinha: sabe onde estás, quanto falta e se vais atrasado, sem teres de tocar em nada.</p>
+        <h3>Como vai o dia</h3>
+        <p>Um cartão mostra onde estás no plano. Marcas a chegada com um gesto, e as horas seguintes ajustam-se sozinhas.</p>
       </div>
       <div class="step">
-        <div class="n">3</div>
-        <h3>Revê</h3>
-        <p>No fim da viagem, fica o que aconteceu: horas reais, o caminho percorrido e um resumo para relembrares.</p>
+        <h3>O que levar</h3>
+        <p>Uma lista de material por paragem, para não chegares a meio da viagem sem o essencial.</p>
+      </div>
+      <div class="step">
+        <h3>Ideias para depois</h3>
+        <p>Sítios que ainda estás a pensar visitar, à espera de uma tarde livre onde caibam.</p>
       </div>
     </div>
+    <p class="lede" style="margin-top: 2rem;">No fim, fica o que aconteceu: horas reais e o caminho percorrido, para relembrares a viagem depois.</p>
   </section>
 
   <section>
-    <h2>O ecrã do dia</h2>
-    <p class="lede">Um dia de cada vez, com as paragens em carrossel — e o que levar já separado por paragem.</p>
+    <h2>Por dentro</h2>
     <div class="screens">
       <figure class="screen-card">
         <img src="assets/shot-roteiro.png" alt="Ecrã do Roteiro do Plan-ish, com as paragens de um dia de viagem e as horas previstas.">
