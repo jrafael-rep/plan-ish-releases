@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan-ish — planeador e acompanhante de viagens</title>
+<meta name="description" content="Plan-ish é um planeador e acompanhante de viagens para Android. Sem conta, sem anúncios, sem servidor — tudo fica no telemóvel.">
+<link rel="icon" href="assets/icon.png">
+<style>
+  :root {
+    color-scheme: dark light;
+    --bg: #0E1116; --surface: #171B22; --raised: #1F242D; --line: #2A303B;
+    --fg: #F2F5F9; --muted: #9AA5B4; --accent: #3DDC97; --accent-dim: #1D6B4C;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #F7F4EE; --surface: #FFFFFF; --raised: #EFEAE1; --line: #D8D0C2;
+      --fg: #1E1B16; --muted: #5A5449; --accent: #0F6B47; --accent-dim: #CDE6DA;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 56rem; margin: 0 auto; padding: 0 1.25rem; }
+  a { color: var(--accent); }
+  strong { font-weight: 700; }
+
+  /* Hero */
+  .hero { padding: 4.5rem 0 3rem; text-align: center; }
+  .mark { width: 76px; height: 76px; border-radius: 20px; margin: 0 auto 1.5rem; display: block; }
+  .hero h1 { font-size: 3rem; line-height: 1; margin: 0 0 .1em; letter-spacing: -.02em; }
+  .hero h1 .dash { color: var(--accent); }
+  .tagline { font-size: 1.2rem; color: var(--muted); max-width: 34rem; margin: 0 auto; }
+  .pills { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin: 1.75rem 0 0; }
+  .pill {
+    border: 1px solid var(--line); border-radius: 999px; padding: .4rem 1rem;
+    font-size: .875rem; color: var(--muted); font-weight: 600;
+  }
+
+  /* Sections */
+  section { margin: 4rem 0; }
+  h2 { font-size: 1.5rem; margin: 0 0 1rem; text-align: center; }
+  .lede { color: var(--muted); text-align: center; max-width: 38rem; margin: 0 auto 2.5rem; font-size: 1.05rem; }
+
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.25rem; }
+  .step {
+    background: var(--surface); border: 1px solid var(--line); border-radius: .9rem;
+    padding: 1.5rem 1.35rem;
+  }
+  .step .n {
+    width: 2rem; height: 2rem; border-radius: 999px; background: var(--accent-dim);
+    color: var(--accent); font-weight: 800; display: flex; align-items: center;
+    justify-content: center; margin-bottom: .9rem; font-size: .95rem;
+  }
+  .step h3 { margin: 0 0 .4rem; font-size: 1.05rem; }
+  .step p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+  .screens { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+  .screen-card { text-align: center; }
+  .screen-card img {
+    width: 220px; max-width: 62vw; border-radius: 1.1rem; border: 1px solid var(--line);
+    display: block; box-shadow: 0 18px 40px -18px rgba(0,0,0,.45);
+  }
+  .screen-card figcaption { margin-top: .75rem; color: var(--muted); font-size: .875rem; font-weight: 600; }
+
+  .trust {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 1rem;
+    padding: 1.75rem; max-width: 38rem; margin: 0 auto; text-align: center;
+  }
+  .trust p { margin: 0 0 .75rem; }
+  .trust p:last-child { margin-bottom: 0; }
+  .trust .more { font-size: .95rem; }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 2rem 0 3rem; margin-top: 2rem;
+    text-align: center; color: var(--muted); font-size: .875rem;
+  }
+  footer a { color: var(--muted); text-decoration: underline; }
+  footer .sep { margin: 0 .5rem; }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="hero">
+    <img class="mark" src="assets/icon.png" alt="">
+    <h1>Plan<span class="dash">-ish</span></h1>
+    <p class="tagline">Planear é só o início. O Plan-ish acompanha a viagem até ao fim.</p>
+    <div class="pills">
+      <span class="pill">Sem conta</span>
+      <span class="pill">Sem rede</span>
+      <span class="pill">Nada sai do telemóvel</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>Um roteiro que segue a viagem, não só o plano</h2>
+    <p class="lede">
+      O Plan-ish é um planeador e acompanhante de viagens para Android. Escreve-se
+      o roteiro dia a dia, dá-se início à viagem, e a app passa a mostrar sempre
+      onde estás face ao que planeaste — sem conta, sem publicidade e sem enviar a
+      tua localização para servidor nenhum.
+    </p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <h3>Planeia</h3>
+        <p>Paragens, horas e durações, dia a dia — à mão ou a importar um plano já feito.</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h3>Acompanha</h3>
+        <p>Um cartão mostra sempre onde estás, quanto falta e se vais atrasado ou adiantado.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h3>Revê</h3>
+        <p>No fim fica o registo: horas reais, percurso percorrido e um resumo da viagem.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>O ecrã do dia</h2>
+    <p class="lede">O roteiro em carrossel, dia a dia, e o que levar organizado por paragem.</p>
+    <div class="screens">
+      <figure class="screen-card">
+        <img src="assets/shot-roteiro.png" alt="Ecrã do Roteiro do Plan-ish, com as paragens de um dia de viagem e as horas previstas.">
+        <figcaption>Roteiro</figcaption>
+      </figure>
+      <figure class="screen-card">
+        <img src="assets/shot-checklist.png" alt="Ecrã do que levar do Plan-ish, com os itens agrupados por categoria e as paragens que os precisam.">
+        <figcaption>O que levar</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="trust">
+      <p><strong>Sem conta. Sem publicidade. Sem servidor do Plan-ish.</strong></p>
+      <p>As tuas viagens, o percurso registado e tudo o que escreves ficam
+      apenas no teu telemóvel. Nunca são vendidos nem partilhados.</p>
+      <p class="more"><a href="privacy.html">Política de privacidade completa →</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <span>Plan-ish · <code>com.jrafa.planish</code> · Jrafa</span>
+    <span class="sep">·</span>
+    <a href="mailto:planish.app@outlook.com">planish.app@outlook.com</a>
+    <span class="sep">·</span>
+    <a href="privacy.html">Privacidade</a>
+  </footer>
+
+</main>
+</body>
+</html>
