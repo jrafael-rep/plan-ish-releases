@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Plan-ish — planeador e acompanhante de viagens</title>
-<meta name="description" content="Plan-ish é um planeador e acompanhante de viagens para Android. Sem conta, sem anúncios, sem servidor — tudo fica no telemóvel.">
+<meta name="description" content="Plan-ish é um planeador e acompanhante de viagens para Android. Sem contas, sem anúncios, sem subscrições — e a tua localização não sai do telemóvel.">
 <link rel="icon" href="assets/icon.png">
 <style>
   :root {
     color-scheme: dark light;
     --bg: #0E1116; --surface: #171B22; --raised: #1F242D; --line: #2A303B;
     --fg: #F2F5F9; --muted: #9AA5B4; --accent: #3DDC97; --accent-dim: #1D6B4C;
+    --coffee: #FFDD00; --coffee-fg: #16130A;
   }
   @media (prefers-color-scheme: light) {
     :root {
@@ -23,53 +24,82 @@
     margin: 0; background: var(--bg); color: var(--fg);
     font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
-  main { max-width: 56rem; margin: 0 auto; padding: 0 1.25rem; }
+  main { max-width: 64rem; margin: 0 auto; padding: 0 1.25rem; }
   a { color: var(--accent); }
   strong { font-weight: 700; }
+  img { display: block; max-width: 100%; height: auto; }
+
+  /* Phones: the screenshots already carry the app's own background. */
+  .phone {
+    width: 260px; max-width: 70vw; border-radius: 1.6rem; border: 1px solid var(--line);
+    box-shadow: 0 24px 50px -24px rgba(0,0,0,.55);
+  }
+  .phones { display: flex; gap: 1rem; justify-content: center; }
+  .phones .phone { width: min(210px, calc(50% - .5rem)); max-width: none; }
+  .detail { width: 100%; max-width: 26rem; border-radius: 1.1rem; border: 1px solid var(--line); }
 
   /* Hero */
-  .hero { padding: 4.5rem 0 3rem; text-align: center; }
-  .mark { width: 76px; height: 76px; border-radius: 20px; margin: 0 auto 1.5rem; display: block; }
-  .hero h1 { font-size: 3rem; line-height: 1; margin: 0 0 .1em; letter-spacing: -.02em; }
+  .hero {
+    display: grid; gap: 2.5rem; align-items: center;
+    padding: 4rem 0 3rem;
+  }
+  @media (min-width: 52rem) { .hero { grid-template-columns: 1.15fr .85fr; padding-top: 5rem; } }
+  .brand { display: flex; align-items: center; gap: .9rem; margin-bottom: 1.25rem; }
+  .mark { width: 56px; height: 56px; border-radius: 15px; }
+  .hero h1 { font-size: 3rem; line-height: 1; margin: 0; letter-spacing: -.02em; }
   .hero h1 .dash { color: var(--accent); }
-  .tagline { font-size: 1.2rem; color: var(--muted); max-width: 34rem; margin: 0 auto; }
-  .pills { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin: 1.75rem 0 0; }
+  .tagline { font-size: 1.3rem; line-height: 1.45; margin: 0 0 1.1rem; font-weight: 600; }
+  .hero .lede { color: var(--muted); margin: 0 0 1.5rem; max-width: 34rem; }
+  .pills { display: flex; gap: .5rem; flex-wrap: wrap; }
   .pill {
-    border: 1px solid var(--line); border-radius: 999px; padding: .4rem 1rem;
-    font-size: .875rem; color: var(--muted); font-weight: 600;
+    border: 1px solid var(--line); border-radius: 999px; padding: .35rem .9rem;
+    font-size: .85rem; color: var(--muted); font-weight: 600;
   }
+  .hero .phone { justify-self: center; }
 
-  /* Sections */
-  section { margin: 4rem 0; }
-  h2 { font-size: 1.5rem; margin: 0 0 1rem; text-align: center; }
-  .lede { color: var(--muted); text-align: center; max-width: 38rem; margin: 0 auto 2.5rem; font-size: 1.05rem; }
-
-  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.25rem; }
-  .step {
-    background: var(--surface); border: 1px solid var(--line); border-radius: .9rem;
-    padding: 1.5rem 1.35rem;
+  /* Features, alternating text and image on wide screens. */
+  .feature {
+    display: grid; gap: 2rem; align-items: center;
+    padding: 3.5rem 0; border-top: 1px solid var(--line);
   }
-  .step h3 { margin: 0 0 .4rem; font-size: 1.05rem; color: var(--accent); }
-  .step p { margin: 0; color: var(--muted); font-size: .95rem; }
-
-  .screens { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
-  .screen-card { text-align: center; }
-  .screen-card img {
-    width: 220px; max-width: 62vw; border-radius: 1.1rem; border: 1px solid var(--line);
-    display: block; box-shadow: 0 18px 40px -18px rgba(0,0,0,.45);
+  @media (min-width: 52rem) {
+    .feature { grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+    .feature.flip .copy { order: 2; }
   }
-  .screen-card figcaption { margin-top: .75rem; color: var(--muted); font-size: .875rem; font-weight: 600; }
+  .eyebrow { color: var(--accent); font-weight: 700; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 .5rem; }
+  .feature h2 { font-size: 1.7rem; line-height: 1.2; margin: 0 0 .9rem; }
+  .feature p { color: var(--muted); margin: 0 0 .9rem; }
+  .feature p:last-child { margin-bottom: 0; }
+  .visual { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+
+  .closing { text-align: center; color: var(--muted); max-width: 36rem; margin: 0 auto; padding: 1rem 0 3rem; }
 
   .trust {
     background: var(--surface); border: 1px solid var(--line); border-radius: 1rem;
-    padding: 1.75rem; max-width: 38rem; margin: 0 auto; text-align: center;
+    padding: 1.75rem; max-width: 40rem; margin: 0 auto 3rem; text-align: center;
   }
   .trust p { margin: 0 0 .75rem; }
   .trust p:last-child { margin-bottom: 0; }
-  .trust .more { font-size: .95rem; }
+
+  /* Support banner, in Buy Me a Coffee's own colours so it reads as theirs. */
+  .coffee {
+    display: grid; gap: 1.25rem; align-items: center;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 1.25rem;
+    padding: 1.75rem; margin: 0 auto 3rem; max-width: 48rem;
+  }
+  @media (min-width: 44rem) { .coffee { grid-template-columns: 1fr auto; padding: 2rem 2.25rem; } }
+  .coffee h2 { margin: 0 0 .4rem; font-size: 1.3rem; }
+  .coffee p { margin: 0; color: var(--muted); }
+  .coffee-button {
+    display: inline-flex; align-items: center; gap: .55rem; justify-self: start;
+    background: var(--coffee); color: var(--coffee-fg); font-weight: 800; text-decoration: none;
+    border-radius: 999px; padding: .85rem 1.4rem; white-space: nowrap;
+  }
+  .coffee-button:hover { filter: brightness(.96); }
+  .coffee-button small { font-weight: 600; opacity: .75; }
 
   footer {
-    border-top: 1px solid var(--line); padding: 2rem 0 3rem; margin-top: 2rem;
+    border-top: 1px solid var(--line); padding: 2rem 0 3rem;
     text-align: center; color: var(--muted); font-size: .875rem;
   }
   footer a { color: var(--muted); text-decoration: underline; }
@@ -79,72 +109,127 @@
 <body>
 <main>
 
-  <div class="hero">
-    <img class="mark" src="assets/icon.png" alt="">
-    <h1>Plan<span class="dash">-ish</span></h1>
-    <p class="tagline">Planear é só o início. O Plan-ish acompanha a viagem até ao fim.</p>
-    <div class="pills">
-      <span class="pill">Sem conta</span>
-      <span class="pill">Sem subscrições</span>
-      <span class="pill">Nada sai do telemóvel</span>
+  <section class="hero">
+    <div>
+      <div class="brand">
+        <img class="mark" src="assets/icon.png" alt="">
+        <h1>Plan<span class="dash">-ish</span></h1>
+      </div>
+      <p class="tagline">Planear é só o início. O Plan-ish acompanha a viagem até ao fim.</p>
+      <p class="lede">
+        Monta o roteiro dia a dia e, durante a viagem, mostra o que vem a seguir,
+        quanto tempo tens e se o dia ainda cabe. <strong>Não substitui o Google Maps
+        nem o Waze</strong>: para conduzir, abre a navegação nessas apps. O Plan-ish
+        trata do resto — o plano do dia inteiro.
+      </p>
+      <div class="pills">
+        <span class="pill">Sem contas</span>
+        <span class="pill">Sem anúncios</span>
+        <span class="pill">Sem subscrições</span>
+        <span class="pill">Nada sai do telemóvel</span>
+      </div>
     </div>
+    <img class="phone" src="assets/shot-roteiro.png" width="540" height="1213"
+      alt="Roteiro de uma sexta-feira do Porto ao Pinhão: pequeno-almoço em Amarante às 09:30, almoço no Peso da Régua às 12:30, com os tempos de deslocação e a margem entre paragens.">
+  </section>
+
+  <section class="feature">
+    <div class="copy">
+      <p class="eyebrow">Durante a viagem</p>
+      <h2>Sabes sempre como vai o dia</h2>
+      <p>
+        Um cartão no topo do roteiro mostra onde estás no plano: há quanto tempo
+        estás na paragem, quanto falta e se o resto do dia ainda encaixa. Marcas a
+        chegada com um gesto, ou deixas que a app tente detetá-la sozinha, e as
+        horas seguintes ajustam-se.
+      </p>
+      <p>
+        Ao volante, o Modo condução mostra só o essencial, em letra grande: onde
+        estás, o que vem a seguir e um botão principal para marcar a chegada ou a saída.
+      </p>
+    </div>
+    <div class="visual">
+      <img class="detail" src="assets/card-agora.png" width="666" height="289"
+        alt="Cartão Agora: pequeno-almoço em Amarante, aqui há 15 minutos, faltam 30, dentro do plano.">
+      <img class="phone" src="assets/shot-conducao.png" width="540" height="1213"
+        alt="Modo condução: 15 minutos no local, pode sair às 10:15, a seguir almoço no Peso da Régua.">
+    </div>
+  </section>
+
+  <section class="feature flip">
+    <div class="copy">
+      <p class="eyebrow">Ideias e sugestões</p>
+      <h2>Guarda o que te interessa. Decide depois.</h2>
+      <p>
+        Nem tudo precisa de hora marcada. Guarda nas Ideias os sítios que te
+        chamam a atenção — um miradouro, uns jardins, uma pastelaria — sem
+        compromisso. Quando decidires, passam para o roteiro no dia e na posição que escolheres.
+      </p>
+      <p>
+        E se o dia correr mais depressa do que o previsto, o Plan-ish sugere uma
+        das tuas ideias que caiba no tempo livre e fique no caminho, com o
+        desvio e o tempo no local já contados.
+      </p>
+    </div>
+    <div class="phones">
+      <img class="phone" src="assets/shot-ideias.png" width="540" height="1213"
+        alt="Lista de ideias de uma viagem ao Douro: bifanas em Mesão Frio, doces conventuais em Amarante, miradouros e os jardins do Palácio de Mateus.">
+      <img class="phone" src="assets/shot-sugestao.png" width="540" height="1213"
+        alt="Sugestão no roteiro: tens cerca de 1h20 livres, Miradouro de Casal de Loivos fica no caminho, cerca de um minuto de desvio.">
+    </div>
+  </section>
+
+  <section class="feature">
+    <div class="copy">
+      <p class="eyebrow">Pesquisar no caminho</p>
+      <h2>O que precisas, sem sair da estrada</h2>
+      <p>
+        Café, combustível, uma farmácia ou umas bifanas: escolhe o que procuras e
+        o desvio máximo que aceitas. Os resultados aparecem ordenados pelo tempo
+        que cada paragem acrescenta à viagem, não pela distância no mapa — e com
+        a indicação de quanto tempo ainda sobra no dia.
+      </p>
+    </div>
+    <div class="visual">
+      <img class="phone" src="assets/shot-caminho.png" width="540" height="1213"
+        alt="Pesquisar no caminho: categorias como comida, café e combustível, desvio máximo de 10 minutos, e resultados com o desvio e o tempo que sobra.">
+    </div>
+  </section>
+
+  <section class="feature flip">
+    <div class="copy">
+      <p class="eyebrow">O que levar</p>
+      <h2>Uma checklist ligada ao roteiro</h2>
+      <p>
+        A checklist da viagem organiza-se por paragem: o protetor solar fica
+        associado ao miradouro, a reserva ao alojamento, o calçado à caminhada.
+        Vês a viagem inteira ou dia a dia.
+      </p>
+    </div>
+    <div class="visual">
+      <img class="phone" src="assets/shot-checklist.png" width="540" height="1213"
+        alt="Checklist da viagem: garrafas de água, reservas, protetor solar e calçado, cada item com as paragens que o pedem.">
+    </div>
+  </section>
+
+  <p class="closing">No fim, fica o registo do que aconteceu: horas reais e o caminho percorrido, para relembrares a viagem mais tarde.</p>
+
+  <div class="trust">
+    <p><strong>Sem contas. Sem anúncios. Sem servidor do Plan-ish.</strong></p>
+    <p>As tuas viagens, o percurso registado e tudo o que escreves ficam
+    apenas no teu telemóvel. Nunca são vendidos nem partilhados.</p>
+    <p><a href="privacy.html">Política de privacidade completa →</a></p>
   </div>
 
-  <section>
-    <h2>O dia sempre à mão, mesmo quando os planos mudam</h2>
-    <p class="lede">
-      O Plan-ish ajuda a montar o roteiro da viagem, dia a dia, e mantém-te a
-      par dele enquanto viajas: o que vem a seguir, quanto tempo tens e se o
-      dia ainda encaixa. <strong>Não substitui o Google Maps nem o Waze</strong>
-      — para conduzir, o Plan-ish abre a navegação nessas apps. O que faz é o
-      resto: o plano do dia inteiro.
-    </p>
-    <div class="steps">
-      <div class="step">
-        <h3>Roteiro do dia</h3>
-        <p>Paragens, horas e durações — sem um mapa cheio de alfinetes para decifrar.</p>
-      </div>
-      <div class="step">
-        <h3>Como vai o dia</h3>
-        <p>Um cartão mostra sempre onde estás no plano. Marcas a chegada com um gesto, ou deixas que a app tente detetá-la sozinha, e as horas seguintes ajustam-se.</p>
-      </div>
-      <div class="step">
-        <h3>Pesquisar no caminho</h3>
-        <p>Procuras café, combustível, uma bifana pelo caminho — o que precisares: defines o desvio máximo que aceitas, e as opções ficam ordenadas pelo tempo extra que cada uma acrescenta à viagem, não pela distância no mapa.</p>
-      </div>
-      <div class="step">
-        <h3>Ideias e sugestões</h3>
-        <p>Guardas sítios que ainda estás a pensar visitar; se sobra tempo a meio do dia, o Plan-ish sugere um que caiba, sem teres de andar à procura.</p>
-      </div>
-      <div class="step">
-        <h3>O que levar</h3>
-        <p>Uma checklist por paragem, para não chegares a meio da viagem sem o essencial.</p>
-      </div>
+  <section class="coffee" aria-labelledby="coffee-title">
+    <div>
+      <h2 id="coffee-title">Gostas do Plan-ish?</h2>
+      <p>O Plan-ish não tem anúncios, pagamentos, subscrições nem contas. Existe e
+      continua a crescer graças a quem o apoia.</p>
     </div>
-    <p class="lede" style="margin-top: 2rem;">No fim, fica o que aconteceu: horas reais e o caminho percorrido, para relembrares a viagem depois.</p>
-  </section>
-
-  <section>
-    <h2>Por dentro</h2>
-    <div class="screens">
-      <figure class="screen-card">
-        <img src="assets/shot-roteiro.png" alt="Ecrã do Roteiro do Plan-ish, com as paragens de um dia de viagem e as horas previstas.">
-        <figcaption>Roteiro</figcaption>
-      </figure>
-      <figure class="screen-card">
-        <img src="assets/shot-checklist.png" alt="Ecrã do que levar do Plan-ish, com os itens agrupados por categoria e as paragens que os precisam.">
-        <figcaption>O que levar</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section>
-    <div class="trust">
-      <p><strong>Sem conta. Sem publicidade. Sem servidor do Plan-ish.</strong></p>
-      <p>As tuas viagens, o percurso registado e tudo o que escreves ficam
-      apenas no teu telemóvel. Nunca são vendidos nem partilhados.</p>
-      <p class="more"><a href="privacy.html">Política de privacidade completa →</a></p>
-    </div>
+    <a class="coffee-button" href="https://buymeacoffee.com/planish" rel="noopener">
+      ☕ Pagar um café <small>buymeacoffee.com</small>
+    </a>
   </section>
 
   <footer>
