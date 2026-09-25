@@ -57,6 +57,15 @@
     font-size: .85rem; color: var(--muted); font-weight: 600;
   }
   .hero .phone { justify-self: center; }
+
+  /* Testers: a quiet strip under the pills, one line, one link. */
+  .tester {
+    display: flex; align-items: center; gap: .75rem; margin-top: 1.25rem; max-width: 34rem;
+    padding: .75rem 1rem; border-radius: .9rem; text-decoration: none; color: var(--fg);
+    background: var(--surface); border: 1px solid var(--accent-dim);
+  }
+  .tester:hover { border-color: var(--accent); }
+  .tester .go { margin-left: auto; color: var(--accent); font-weight: 700; white-space: nowrap; }
   .note { color: var(--muted); font-size: .85rem; margin: .9rem 0 0; }
 
   /* Features, alternating text and image on wide screens. */
@@ -136,6 +145,10 @@
         <span class="pill">Nothing leaves your phone</span>
       </div>
       <p class="note">The app is currently available in Portuguese.</p>
+      <a class="tester" href="https://play.google.com/store/apps/details?id=com.jrafa.planish&amp;pcampaignid=web_share" rel="noopener">
+        <span><strong>Are you a tester?</strong> Download the test version here.</span>
+        <span class="go">Google Play →</span>
+      </a>
     </div>
     <img class="phone" src="assets/shot-roteiro.png" width="540" height="1213"
       alt="Itinerary for a Friday from Porto to Pinhão: breakfast in Amarante at 09:30, lunch in Peso da Régua at 12:30, with travel times and spare time between stops.">

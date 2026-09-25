@@ -58,6 +58,15 @@
   }
   .hero .phone { justify-self: center; }
 
+  /* Testers: a quiet strip under the pills, one line, one link. */
+  .tester {
+    display: flex; align-items: center; gap: .75rem; margin-top: 1.25rem; max-width: 34rem;
+    padding: .75rem 1rem; border-radius: .9rem; text-decoration: none; color: var(--fg);
+    background: var(--surface); border: 1px solid var(--accent-dim);
+  }
+  .tester:hover { border-color: var(--accent); }
+  .tester .go { margin-left: auto; color: var(--accent); font-weight: 700; white-space: nowrap; }
+
   /* Features, alternating text and image on wide screens. */
   .feature {
     display: grid; gap: 2rem; align-items: center;
@@ -134,6 +143,10 @@
         <span class="pill">Sem subscrições</span>
         <span class="pill">Nada sai do telemóvel</span>
       </div>
+      <a class="tester" href="https://play.google.com/store/apps/details?id=com.jrafa.planish&amp;pcampaignid=web_share" rel="noopener">
+        <span><strong>És tester?</strong> Faz o download da versão de teste aqui.</span>
+        <span class="go">Google Play →</span>
+      </a>
     </div>
     <img class="phone" src="assets/shot-roteiro.png" width="540" height="1213"
       alt="Roteiro de uma sexta-feira do Porto ao Pinhão: pequeno-almoço em Amarante às 09:30, almoço no Peso da Régua às 12:30, com os tempos de deslocação e a margem entre paragens.">
