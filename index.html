@@ -65,7 +65,7 @@
     background: var(--surface); border: 1px solid var(--accent-dim);
   }
   .tester:hover { border-color: var(--accent); }
-  .tester .go { margin-left: auto; color: var(--accent); font-weight: 700; white-space: nowrap; }
+  .tester .play { margin-left: auto; flex: none; }
 
   /* Features, alternating text and image on wide screens. */
   .feature {
@@ -144,8 +144,13 @@
         <span class="pill">Nada sai do telemóvel</span>
       </div>
       <a class="tester" href="https://play.google.com/store/apps/details?id=com.jrafa.planish&amp;pcampaignid=web_share" rel="noopener">
-        <span><strong>És tester?</strong> Faz o download da versão de teste aqui.</span>
-        <span class="go">Google Play →</span>
+        <span><strong>És tester?</strong> Faz o download aqui.</span>
+        <svg class="play" viewBox="0 0 24 26" width="24" height="26" role="img" aria-label="Google Play">
+          <path fill="#00D7FE" d="M1.1.6C.8.9.6 1.4.6 2v22c0 .6.2 1.1.5 1.4l12.3-12.4z"/>
+          <path fill="#FFCE00" d="M17.5 17.1l-4.1-4.1 4.1-4.1 4.9 2.8c1.4.8 1.4 2.1 0 2.9z"/>
+          <path fill="#FF3A44" d="M17.5 17.1L13.4 13 1.1 25.4c.5.5 1.2.5 2.1 0z"/>
+          <path fill="#00F076" d="M17.5 8.9L3.2.7C2.3.1 1.6.2 1.1.6L13.4 13z"/>
+        </svg>
       </a>
     </div>
     <img class="phone" src="assets/shot-roteiro.png" width="540" height="1213"
