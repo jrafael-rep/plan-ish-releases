@@ -1,0 +1,152 @@
+# Builds Plan-ish from the private Triptracker repository and sends it to
+# Google Play.
+#
+# It lives in this public repository because GitHub Actions minutes are free
+# for public repositories; the source stays private. Nothing built here is kept
+# on GitHub: the signed bundle goes straight to Play and the runner is thrown
+# away. Secrets are masked in the (public) logs, and none is ever echoed.
+#
+# Run it from Actions → "Plan-ish → Google Play" → Run workflow.
+
+name: Plan-ish → Google Play
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Triptracker branch, tag or commit to build
+        required: true
+        default: claude/geres-trip-tracker-app-y1coxy
+        type: string
+      track:
+        description: Play track
+        required: true
+        default: internal
+        type: choice
+        options:
+          - internal
+          - alpha        # closed testing
+          - production
+
+permissions:
+  contents: read
+
+concurrency:
+  group: play-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      PLANISH_DISTRIBUTION: play
+      EXPO_PUBLIC_GEO_API_KEY: ${{ secrets.GEO_API_KEY }}
+      GERES_KEYSTORE_PASSWORD: ${{ secrets.PLAY_UPLOAD_KEYSTORE_PASSWORD }}
+      GERES_KEY_PASSWORD: ${{ secrets.PLAY_UPLOAD_KEYSTORE_PASSWORD }}
+      GERES_KEY_ALIAS: ${{ secrets.PLAY_UPLOAD_KEY_ALIAS }}
+      EXPECTED_CERT_SHA256: EE:22:5E:67:80:98:59:B4:66:33:87:D3:E6:3C:1E:EE:86:69:1B:42:E5:01:0A:1F:C0:AE:F7:2B:7F:93:76:6E
+    steps:
+      - name: Check the secrets are there
+        shell: bash
+        env:
+          SOURCE_TOKEN: ${{ secrets.TRIPTRACKER_READ_TOKEN }}
+          KEYSTORE: ${{ secrets.PLAY_UPLOAD_KEYSTORE_BASE64 }}
+          SERVICE_ACCOUNT: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+        run: |
+          missing=0
+          for name in SOURCE_TOKEN KEYSTORE SERVICE_ACCOUNT EXPO_PUBLIC_GEO_API_KEY GERES_KEYSTORE_PASSWORD GERES_KEY_ALIAS; do
+            if [ -z "${!name:-}" ]; then echo "::error::Missing secret for $name"; missing=1; fi
+          done
+          exit $missing
+
+      # Every run gets the next number, so nobody bumps app.json by hand. The
+      # offset keeps it above the versionCodes already uploaded by hand (≤ 44).
+      - name: Number this build
+        run: echo "PLANISH_VERSION_CODE=$((100 + ${{ github.run_number }}))" >> "$GITHUB_ENV"
+
+      - name: Check out Triptracker (private)
+        uses: actions/checkout@v4
+        with:
+          repository: jrafael-rep/Triptracker
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.TRIPTRACKER_READ_TOKEN }}
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK packages
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0' 'ndk;27.1.12297006' > /dev/null
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Typecheck and tests
+        run: |
+          npm run typecheck
+          npm test -- --runInBand --silent
+
+      - name: Restore and verify the upload key
+        shell: bash
+        env:
+          KEYSTORE: ${{ secrets.PLAY_UPLOAD_KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$KEYSTORE" | base64 --decode > plan-ish-release.keystore
+          chmod 600 plan-ish-release.keystore
+          actual="$(keytool -list -v -keystore plan-ish-release.keystore \
+            -storepass "$GERES_KEYSTORE_PASSWORD" -alias "$GERES_KEY_ALIAS" \
+            | sed -n 's/.*SHA256: //p' | head -1 | tr -d ': ')"
+          expected="$(printf '%s' "$EXPECTED_CERT_SHA256" | tr -d ': ')"
+          if [ "$actual" != "$expected" ]; then
+            echo "::error::The keystore is not the Play upload key (CN=Plan-ish)."
+            exit 1
+          fi
+          echo "Upload key verified."
+
+      - name: Generate the Android project
+        env:
+          GERES_KEYSTORE_FILE: ${{ github.workspace }}/plan-ish-release.keystore
+        run: npx expo prebuild --platform android --clean --no-install
+
+      - name: Build the app bundle
+        working-directory: android
+        run: ./gradlew bundleRelease -x lint --no-daemon
+
+      - name: Check what was built
+        shell: bash
+        run: |
+          set -euo pipefail
+          aab=android/app/build/outputs/bundle/release/app-release.aab
+          jarsigner -verify "$aab" | grep -q "jar verified"
+          manifest=android/app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml
+          grep -q 'package="com.jrafa.planish"' "$manifest"
+          grep -q "android:versionCode=\"$PLANISH_VERSION_CODE\"" "$manifest"
+          if grep -q REQUEST_INSTALL_PACKAGES "$manifest"; then echo "::error::Play build asks to install packages"; exit 1; fi
+          echo "versionName $(node -p "require('./app.json').expo.version") · versionCode $PLANISH_VERSION_CODE"
+
+      - name: Send to Google Play
+        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.jrafa.planish
+          releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
+          track: ${{ inputs.track }}
+          status: completed
+          whatsNewDirectory: play/whatsnew
+
+      - name: Remove the key from the runner
+        if: always()
+        run: rm -f plan-ish-release.keystore
