@@ -6,7 +6,9 @@
 # on GitHub: the signed bundle goes straight to Play and the runner is thrown
 # away. Secrets are masked in the (public) logs, and none is ever echoed.
 #
-# Run it from Actions → "Plan-ish → Google Play" → Run workflow.
+# Run it from Actions → "Plan-ish → Google Play" → Run workflow. The "check"
+# track does everything except sending: a rehearsal that proves the secrets,
+# the build and the signature without touching Play.
 
 name: Plan-ish → Google Play
 
@@ -27,6 +29,7 @@ on:
           - internal
           - alpha        # closed testing
           - production
+          - check        # ensaio: verifica os segredos, compila e assina, e não envia nada
 
 permissions:
   contents: read
@@ -138,6 +141,7 @@ jobs:
           echo "versionName $(node -p "require('./app.json').expo.version") · versionCode $PLANISH_VERSION_CODE"
 
       - name: Send to Google Play
+        if: inputs.track != 'check'
         uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
