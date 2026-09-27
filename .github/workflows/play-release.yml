@@ -58,7 +58,10 @@ jobs:
           SERVICE_ACCOUNT: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
         run: |
           missing=0
-          for name in SOURCE_TOKEN KEYSTORE SERVICE_ACCOUNT EXPO_PUBLIC_GEO_API_KEY GERES_KEYSTORE_PASSWORD GERES_KEY_ALIAS; do
+          # O ensaio não envia nada, por isso não precisa da conta de serviço da Play.
+          needed="SOURCE_TOKEN KEYSTORE EXPO_PUBLIC_GEO_API_KEY GERES_KEYSTORE_PASSWORD GERES_KEY_ALIAS"
+          if [ "${{ inputs.track }}" != "check" ]; then needed="$needed SERVICE_ACCOUNT"; fi
+          for name in $needed; do
             if [ -z "${!name:-}" ]; then echo "::error::Missing secret for $name"; missing=1; fi
           done
           exit $missing
