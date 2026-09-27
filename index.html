@@ -3,274 +3,184 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plan-ish — planeador e acompanhante de viagens</title>
-<meta name="description" content="Plan-ish é um planeador e acompanhante de viagens para Android. Sem contas, sem anúncios, sem subscrições — e a tua localização não sai do telemóvel.">
+<title>Plan-ish: planeia a viagem, depois vive-a</title>
+<meta name="description" content="Planeador e acompanhante de viagens para Android. Roteiro dia a dia, horas que se ajustam sozinhas e o Google Maps a um toque. Sem conta e sem anúncios.">
+<meta name="theme-color" content="#0A120F" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F3F7F4" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Plan-ish: planeia a viagem, depois vive-a">
+<meta property="og:description" content="Roteiro dia a dia, horas que se ajustam sozinhas e o Google Maps a um toque. Sem conta e sem anúncios.">
+<meta property="og:locale" content="pt_PT">
 <link rel="icon" href="assets/icon.png">
 <link rel="alternate" hreflang="en" href="index.en.html">
-<style>
-  :root {
-    color-scheme: dark light;
-    --bg: #0E1116; --surface: #171B22; --raised: #1F242D; --line: #2A303B;
-    --fg: #F2F5F9; --muted: #9AA5B4; --accent: #3DDC97; --accent-dim: #1D6B4C;
-    --coffee: #FFDD00; --coffee-fg: #16130A;
-  }
-  @media (prefers-color-scheme: light) {
-    :root {
-      --bg: #F7F4EE; --surface: #FFFFFF; --raised: #EFEAE1; --line: #D8D0C2;
-      --fg: #1E1B16; --muted: #5A5449; --accent: #0F6B47; --accent-dim: #CDE6DA;
-    }
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; background: var(--bg); color: var(--fg);
-    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-  main { max-width: 64rem; margin: 0 auto; padding: 0 1.25rem; }
-  a { color: var(--accent); }
-  strong { font-weight: 700; }
-  img { display: block; max-width: 100%; height: auto; }
-
-  /* Phones: the screenshots already carry the app's own background. */
-  .phone {
-    width: 260px; max-width: 70vw; border-radius: 1.6rem; border: 1px solid var(--line);
-    box-shadow: 0 24px 50px -24px rgba(0,0,0,.55);
-  }
-  .phones { display: flex; gap: 1rem; justify-content: center; }
-  .phones .phone { width: min(210px, calc(50% - .5rem)); max-width: none; }
-  .detail { width: 100%; max-width: 26rem; border-radius: 1.1rem; border: 1px solid var(--line); }
-
-  /* Hero */
-  .hero {
-    display: grid; gap: 2.5rem; align-items: center;
-    padding: 4rem 0 3rem;
-  }
-  @media (min-width: 52rem) { .hero { grid-template-columns: 1.15fr .85fr; padding-top: 5rem; } }
-  .brand { display: flex; align-items: center; gap: .9rem; margin-bottom: 1.25rem; }
-  .mark { width: 56px; height: 56px; border-radius: 15px; }
-  .hero h1 { font-size: 3rem; line-height: 1; margin: 0; letter-spacing: -.02em; }
-  .hero h1 .dash { color: var(--accent); }
-  .tagline { font-size: 1.3rem; line-height: 1.45; margin: 0 0 1.1rem; font-weight: 600; }
-  .hero .lede { color: var(--muted); margin: 0 0 1.5rem; max-width: 34rem; }
-  .pills { display: flex; gap: .5rem; flex-wrap: wrap; }
-  .pill {
-    border: 1px solid var(--line); border-radius: 999px; padding: .35rem .9rem;
-    font-size: .85rem; color: var(--muted); font-weight: 600;
-  }
-  .hero .phone { justify-self: center; }
-
-  /* Testers: a quiet strip under the pills, one line, one link. */
-  .tester {
-    display: inline-flex; align-items: center; gap: .6rem; margin-top: 1rem; max-width: 100%;
-    padding: .4rem .5rem .4rem .9rem; border-radius: 999px; text-decoration: none; color: var(--fg);
-    font-size: .9rem; line-height: 1.3;
-    background: var(--surface); border: 1px solid var(--accent-dim);
-  }
-  .tester:hover { border-color: var(--accent); }
-  .tester .play { flex: none; }
-
-  /* Features, alternating text and image on wide screens. */
-  .feature {
-    display: grid; gap: 2rem; align-items: center;
-    padding: 3.5rem 0; border-top: 1px solid var(--line);
-  }
-  @media (min-width: 52rem) {
-    .feature { grid-template-columns: 1fr 1fr; gap: 3.5rem; }
-    .feature.flip .copy { order: 2; }
-  }
-  .eyebrow { color: var(--accent); font-weight: 700; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 .5rem; }
-  .feature h2 { font-size: 1.7rem; line-height: 1.2; margin: 0 0 .9rem; }
-  .feature p { color: var(--muted); margin: 0 0 .9rem; }
-  .feature p:last-child { margin-bottom: 0; }
-  .visual { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
-
-  .closing { text-align: center; color: var(--muted); max-width: 36rem; margin: 0 auto; padding: 1rem 0 3rem; }
-
-  .trust {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 1rem;
-    padding: 1.75rem; max-width: 40rem; margin: 0 auto 3rem; text-align: center;
-  }
-  .trust p { margin: 0 0 .75rem; }
-  .trust p:last-child { margin-bottom: 0; }
-
-  /* Support banner, in Buy Me a Coffee's own colours so it reads as theirs. */
-  .coffee {
-    display: grid; gap: 1.25rem; align-items: center;
-    background: var(--surface); border: 1px solid var(--line); border-radius: 1.25rem;
-    padding: 1.75rem; margin: 0 auto 3rem; max-width: 48rem;
-  }
-  @media (min-width: 44rem) { .coffee { grid-template-columns: 1fr auto; padding: 2rem 2.25rem; } }
-  .coffee h2 { margin: 0 0 .4rem; font-size: 1.3rem; }
-  .coffee p { margin: 0; color: var(--muted); }
-  .coffee-button {
-    display: inline-flex; align-items: center; gap: .55rem; justify-self: start;
-    background: var(--coffee); color: var(--coffee-fg); font-weight: 800; text-decoration: none;
-    border-radius: 999px; padding: .85rem 1.4rem; white-space: nowrap;
-  }
-  .coffee-button:hover { filter: brightness(.96); }
-
-  .lang { display: flex; justify-content: flex-end; padding-top: 1.25rem; font-size: .9rem; }
-  .lang a { color: var(--muted); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: .25rem .8rem; }
-
-  footer {
-    border-top: 1px solid var(--line); padding: 2rem 0 3rem;
-    text-align: center; color: var(--muted); font-size: .875rem;
-  }
-  footer a { color: var(--muted); text-decoration: underline; }
-  footer .sep { margin: 0 .5rem; }
-</style>
+<link rel="preload" href="assets/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-<main>
-
-  <nav class="lang"><a href="index.en.html" hreflang="en" lang="en">English</a></nav>
-
-  <section class="hero">
-    <div>
-      <div class="brand">
-        <img class="mark" src="assets/icon.png" alt="">
-        <h1>Plan<span class="dash">-ish</span></h1>
-      </div>
-      <p class="tagline">Planear é só o início. O Plan-ish acompanha a viagem até ao fim.</p>
-      <p class="lede">
-        Monta o roteiro dia a dia e, durante a viagem, mostra o que vem a seguir,
-        quanto tempo tens e se o dia ainda cabe. Para conduzir, trabalha com o
-        <strong>Google Maps</strong>: quando é hora de seguir, um toque abre a
-        navegação já com a próxima paragem como destino, sem escreveres moradas.
-        O Plan-ish trata do resto — o plano do dia inteiro.
-      </p>
-      <div class="pills">
-        <span class="pill">Sem contas</span>
-        <span class="pill">Sem anúncios</span>
-        <span class="pill">Sem subscrições</span>
-        <span class="pill">Nada sai do telemóvel</span>
-      </div>
-      <a class="tester" href="https://play.google.com/store/apps/details?id=com.jrafa.planish&amp;pcampaignid=web_share" rel="noopener">
-        <span><strong>És tester?</strong> Faz o download aqui.</span>
-        <svg class="play" viewBox="0 0 24 26" width="18" height="20" role="img" aria-label="Google Play">
-          <path fill="#00D7FE" d="M1.1.6C.8.9.6 1.4.6 2v22c0 .6.2 1.1.5 1.4l12.3-12.4z"/>
-          <path fill="#FFCE00" d="M17.5 17.1l-4.1-4.1 4.1-4.1 4.9 2.8c1.4.8 1.4 2.1 0 2.9z"/>
-          <path fill="#FF3A44" d="M17.5 17.1L13.4 13 1.1 25.4c.5.5 1.2.5 2.1 0z"/>
-          <path fill="#00F076" d="M17.5 8.9L3.2.7C2.3.1 1.6.2 1.1.6L13.4 13z"/>
-        </svg>
-      </a>
-    </div>
-    <img class="phone" src="assets/shot-roteiro.png" width="540" height="1213"
-      alt="Roteiro de uma sexta-feira do Porto ao Pinhão: pequeno-almoço em Amarante às 09:30, almoço no Peso da Régua às 12:30, com os tempos de deslocação e a margem entre paragens.">
-  </section>
-
-  <section class="feature">
-    <div class="copy">
-      <p class="eyebrow">Ideias e sugestões</p>
-      <h2>Guarda o que te interessa. Decide depois.</h2>
-      <p>
-        Nem tudo precisa de hora marcada. Guarda nas Ideias os sítios que te
-        chamam a atenção — um miradouro, uns jardins, uma pastelaria — sem
-        compromisso. Quando decidires, passam para o roteiro no dia e na posição que escolheres.
-      </p>
-      <p>
-        E se o dia correr mais depressa do que o previsto, o Plan-ish sugere uma
-        das tuas ideias que caiba no tempo livre e fique no caminho, com o
-        desvio e o tempo no local já contados.
-      </p>
-    </div>
-    <div class="phones">
-      <img class="phone" src="assets/shot-ideias.png" width="540" height="1213"
-        alt="Lista de ideias de uma viagem ao Douro: bifanas em Mesão Frio, doces conventuais em Amarante, miradouros e os jardins do Palácio de Mateus.">
-      <img class="phone" src="assets/shot-sugestao.png" width="540" height="1213"
-        alt="Sugestão no roteiro: tens cerca de 1h20 livres, Miradouro de Casal de Loivos fica no caminho, cerca de um minuto de desvio.">
-    </div>
-  </section>
-
-  <section class="feature flip">
-    <div class="copy">
-      <p class="eyebrow">Durante a viagem</p>
-      <h2>Sabes sempre como vai o dia</h2>
-      <p>
-        Um cartão no topo do roteiro mostra onde estás no plano: há quanto tempo
-        estás na paragem, quanto falta e se o resto do dia ainda encaixa. Marcas a
-        chegada com um gesto, ou deixas que a app tente detetá-la sozinha, e as
-        horas seguintes ajustam-se.
-      </p>
-      <p>
-        Ao volante, o Modo condução mostra só o essencial, em letra grande. O botão
-        principal marca a chegada ou a saída e, quando é hora de seguir, abre o
-        Google Maps a navegar para a próxima paragem. No botão + tens o resto à
-        mão: adicionar uma paragem, pesquisar no caminho ou ajustar o dia.
-      </p>
-    </div>
-    <div class="visual">
-      <img class="detail" src="assets/card-agora.png" width="666" height="289"
-        alt="Cartão Agora: pequeno-almoço em Amarante, aqui há 15 minutos, faltam 30, dentro do plano.">
-      <div class="phones">
-        <img class="phone" src="assets/shot-conducao.png" width="540" height="1213"
-          alt="Modo condução: 15 minutos no local, pode sair às 10:15, a seguir almoço no Peso da Régua.">
-        <img class="phone" src="assets/shot-dial.png" width="540" height="1213"
-          alt="Modo condução com o botão + aberto: adicionar paragem, pesquisar no caminho, ajustar o dia e terminar viagem.">
-      </div>
-    </div>
-  </section>
-
-  <section class="feature">
-    <div class="copy">
-      <p class="eyebrow">Pesquisar no caminho</p>
-      <h2>O que precisas, sem sair da estrada</h2>
-      <p>
-        Café, combustível, uma farmácia ou umas bifanas: escolhe o que procuras e
-        o desvio máximo que aceitas. Os resultados aparecem ordenados pelo tempo
-        que cada paragem acrescenta à viagem, não pela distância no mapa — e com
-        a indicação de quanto tempo ainda sobra no dia.
-      </p>
-    </div>
-    <div class="visual">
-      <img class="phone" src="assets/shot-caminho.png" width="540" height="1213"
-        alt="Pesquisar no caminho: categorias como comida, café e combustível, desvio máximo de 10 minutos, e resultados com o desvio e o tempo que sobra.">
-    </div>
-  </section>
-
-  <section class="feature flip">
-    <div class="copy">
-      <p class="eyebrow">O que levar</p>
-      <h2>Uma checklist ligada ao roteiro</h2>
-      <p>
-        A checklist da viagem organiza-se por paragem: o protetor solar fica
-        associado ao miradouro, a reserva ao alojamento, o calçado à caminhada.
-        Vês a viagem inteira ou dia a dia.
-      </p>
-    </div>
-    <div class="visual">
-      <img class="phone" src="assets/shot-checklist.png" width="540" height="1213"
-        alt="Checklist da viagem: garrafas de água, reservas, protetor solar e calçado, cada item com as paragens que o pedem.">
-    </div>
-  </section>
-
-  <p class="closing">No fim, fica o registo do que aconteceu: horas reais e o caminho percorrido, para relembrares a viagem mais tarde.</p>
-
-  <div class="trust">
-    <p><strong>Sem contas. Sem anúncios. Sem servidor do Plan-ish.</strong></p>
-    <p>As tuas viagens, o percurso registado e tudo o que escreves ficam
-    apenas no teu telemóvel. Nunca são vendidos nem partilhados.</p>
-    <p><a href="privacy.html">Política de privacidade completa →</a></p>
+<!-- Ícones: Phosphor Icons (MIT), https://phosphoricons.com -->
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="assets/icon.png" alt="" width="32" height="32">Plan-ish</a>
+    <nav aria-label="Principal">
+      <a class="wide" href="#funcionalidades">Funcionalidades</a>
+      <a href="https://jrafael-rep.github.io/plan-ish-community/">Comunidade</a>
+      <a href="index.en.html" hreflang="en" lang="en">EN</a>
+    </nav>
   </div>
+</header>
 
-  <section class="coffee" aria-labelledby="coffee-title">
-    <div>
-      <h2 id="coffee-title">Gostas do Plan-ish?</h2>
-      <p>O Plan-ish não tem anúncios, pagamentos, subscrições nem contas. Existe e
-      continua a crescer graças a quem o apoia.</p>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1 class="rise">Planeia a viagem.<br><span>Depois, é só <span class="nowrap">vivê-la.</span></span></h1>
+        <p class="lede rise">Roteiro dia a dia, horas que se ajustam sozinhas e o Google Maps a um toque. Sem conta e sem anúncios.</p>
+        <div class="ctas rise">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.jrafa.planish" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M239.82,114.19,72,18.16a16,16,0,0,0-16.12,0A15.68,15.68,0,0,0,48,31.87V224.13a15.68,15.68,0,0,0,7.92,13.67,16,16,0,0,0,16.12,0l167.78-96a15.75,15.75,0,0,0,0-27.62ZM64,212.67V43.33L148.69,128Zm96-73.36,18.92,18.92-88.5,50.66ZM90.4,47.1l88.53,50.67L160,116.69ZM193.31,150l-22-22,22-22,38.43,22Z"/></svg>Obter no Google Play</a>
+          <a class="btn ghost" href="https://jrafael-rep.github.io/plan-ish-community/">Explorar a Comunidade</a>
+        </div>
+      </div>
+      <div class="phones rise" aria-label="O Plan-ish no telemóvel">
+        <img class="phone back" src="assets/shot-conducao.png" width="540" height="1213" alt="Modo condução: 15 minutos no local, pode sair às 10:15, a seguir almoço no Peso da Régua.">
+        <img class="phone front" src="assets/shot-roteiro.png" width="540" height="1213" alt="Roteiro de uma sexta-feira do Porto ao Pinhão, com as horas de cada paragem, as deslocações e a margem entre elas.">
+      </div>
     </div>
-    <a class="coffee-button" href="https://buymeacoffee.com/planish" rel="noopener">
-      ☕ Paga-me um café
-    </a>
   </section>
 
-  <footer>
-    <span>Plan-ish · <code>com.jrafa.planish</code> · Jrafa</span>
-    <span class="sep">·</span>
-    <a href="mailto:planish.app@outlook.com">planish.app@outlook.com</a>
-    <span class="sep">·</span>
-    <a href="privacy.html">Privacidade</a>
-  </footer>
+  <section class="promise">
+    <div class="wrap">
+      <p class="statement rise"><b>Grátis e completo no telemóvel.</b> Não precisas de conta, não há anúncios e funciona sem rede. O teu percurso GPS nunca sai do bolso.</p>
+      <div class="facts rise">
+        <span><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M168,56a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H176A8,8,0,0,1,168,56Zm58.08,37.33a103.93,103.93,0,1,1-80.76-67.89,8,8,0,0,1-2.64,15.78A88.07,88.07,0,0,0,40,128a87.62,87.62,0,0,0,22.24,58.41A79.66,79.66,0,0,1,98.3,157.66a48,48,0,1,1,59.4,0,79.66,79.66,0,0,1,36.06,28.75A88,88,0,0,0,211,98.67a8,8,0,0,1,15.09-5.34ZM128,152a32,32,0,1,0-32-32A32,32,0,0,0,128,152Zm0,64a87.57,87.57,0,0,0,53.92-18.5,64,64,0,0,0-107.84,0A87.57,87.57,0,0,0,128,216Z"/></svg>Sem conta</span>
+        <span><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm88,104a87.56,87.56,0,0,1-20.41,56.28L71.72,60.4A88,88,0,0,1,216,128ZM40,128A87.56,87.56,0,0,1,60.41,71.72L184.28,195.6A88,88,0,0,1,40,128Z"/></svg>Sem anúncios</span>
+        <span><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M213.92,210.62a8,8,0,1,1-11.84,10.76l-52-57.15a60,60,0,0,0-57.41,7.24,8,8,0,1,1-9.42-12.93A75.43,75.43,0,0,1,128,144c1.28,0,2.55,0,3.82.1L104.9,114.49A108,108,0,0,0,61,135.31,8,8,0,0,1,49.73,134,8,8,0,0,1,51,122.77a124.27,124.27,0,0,1,41.71-21.66L69.37,75.4a155.43,155.43,0,0,0-40.29,24A8,8,0,0,1,18.92,87,171.87,171.87,0,0,1,58,62.86L42.08,45.38A8,8,0,1,1,53.92,34.62ZM128,192a12,12,0,1,0,12,12A12,12,0,0,0,128,192ZM237.08,87A172.3,172.3,0,0,0,106,49.4a8,8,0,1,0,2,15.87A158.33,158.33,0,0,1,128,64a156.25,156.25,0,0,1,98.92,35.37A8,8,0,0,0,237.08,87ZM195,135.31a8,8,0,0,0,11.24-1.3,8,8,0,0,0-1.3-11.24,124.25,124.25,0,0,0-51.73-24.2A8,8,0,1,0,150,114.24,108.12,108.12,0,0,1,195,135.31Z"/></svg>Funciona sem rede</span>
+        <span><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg>A localização fica no telemóvel</span>
+      </div>
+    </div>
+  </section>
 
+  <section class="section" id="funcionalidades">
+    <div class="wrap">
+      <h2 class="rise">Um plano que acompanha o dia</h2>
+      <p class="sub rise">Se chegas mais cedo ou mais tarde, o resto do dia ajusta-se. Tu só decides.</p>
+      <div class="bento">
+        <article class="tile tall deep rise">
+          <svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.92,49.69a8,8,0,0,0-6.86-1.45L160.93,63.52,99.58,32.84a8,8,0,0,0-5.52-.6l-64,16A8,8,0,0,0,24,56V200a8,8,0,0,0,9.94,7.76l61.13-15.28,61.35,30.68A8.15,8.15,0,0,0,160,224a8,8,0,0,0,1.94-.24l64-16A8,8,0,0,0,232,200V56A8,8,0,0,0,228.92,49.69ZM104,52.94l48,24V203.06l-48-24ZM40,62.25l48-12v127.5l-48,12Zm176,131.5-48,12V78.25l48-12Z"/></svg>
+          <h3>Sabes sempre como vai o dia</h3>
+          <p>Onde estás no plano, quanto falta e se o resto ainda cabe. As horas seguintes acertam-se sozinhas.</p>
+          <img class="card" src="assets/card-agora.png" width="666" height="289" alt="Cartão Agora: pequeno-almoço em Amarante, aqui há 15 minutos, faltam 30, dentro do plano." loading="lazy">
+          <img class="phone-in" src="assets/shot-roteiro.png" width="540" height="1213" alt="" loading="lazy">
+        </article>
+        <article class="tile tint rise">
+          <svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.65,71.65,0,0,0,27.64,56.3A32,32,0,0,1,96,186v6h64v-6a32.15,32.15,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Zm-16.11-9.34a57.6,57.6,0,0,0-46.56-46.55,8,8,0,0,0-2.66,15.78c16.57,2.79,30.63,16.85,33.44,33.45A8,8,0,0,0,176,104a9,9,0,0,0,1.35-.11A8,8,0,0,0,183.89,94.66Z"/></svg>
+          <h3>Ideias que cabem no caminho</h3>
+          <p>Guarda sítios sem hora marcada. Se sobrar tempo, o Plan-ish sugere um que fique no caminho.</p>
+          <img class="shot" src="assets/shot-sugestao.png" width="540" height="1213" alt="Sugestão: tens cerca de 1h20 livres e um miradouro fica no caminho." loading="lazy">
+        </article>
+        <article class="tile rise">
+          <svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+          <h3>Pesquisar no caminho</h3>
+          <p>Café, combustível ou farmácia, ordenados pelo tempo que acrescentam à viagem.</p>
+          <img class="shot" style="object-position: 50% 36%" src="assets/shot-caminho.png" width="540" height="1213" alt="Pesquisar no caminho, com o desvio de cada resultado." loading="lazy">
+        </article>
+        <article class="tile rise">
+          <svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM224,48V208a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM208,208V48H48V208H208Z"/></svg>
+          <h3>O que levar, por paragem</h3>
+          <p>O protetor solar fica no miradouro, as botas na caminhada. Vês a viagem inteira ou dia a dia.</p>
+          <img class="shot" src="assets/shot-checklist.png" width="540" height="1213" alt="Checklist da viagem, com as paragens que pedem cada coisa." loading="lazy">
+        </article>
+        <article class="tile tint rise">
+          <svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M216,40H72A16,16,0,0,0,56,56V72H40A16,16,0,0,0,24,88V200a16,16,0,0,0,16,16H184a16,16,0,0,0,16-16V184h16a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM72,56H216v62.75l-10.07-10.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L72,109.37ZM184,200H40V88H56v80a16,16,0,0,0,16,16H184Zm32-32H72V132l36-36,49.66,49.66a8,8,0,0,0,11.31,0L194.63,120,216,141.38V168ZM160,84a12,12,0,1,1,12,12A12,12,0,0,1,160,84Z"/></svg>
+          <h3>Álbum da viagem</h3>
+          <p>Fotografias por dia e por paragem, guardadas no telemóvel, e tudo exportado num só ficheiro quando quiseres.</p>
+        </article>
+        <article class="tile deep wide rise">
+          <svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"/></svg>
+          <h3>Começa como quiseres</h3>
+          <p>De raiz, a partir de um itinerário da Comunidade, ou com o roteiro que um assistente de IA te escreveu.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section drive">
+    <div class="wrap">
+      <div class="pair rise">
+        <img src="assets/shot-conducao.png" width="540" height="1213" alt="Modo condução em letra grande, com o botão para marcar a saída." loading="lazy">
+        <img src="assets/shot-dial.png" width="540" height="1213" alt="Modo condução com o botão + aberto: adicionar paragem, pesquisar no caminho, ajustar o dia." loading="lazy">
+      </div>
+      <div>
+        <h2 class="rise">Ao volante, só o essencial</h2>
+        <p class="rise">Letra grande e um botão para marcar a chegada. Quando é hora de seguir, abre o Google Maps já com a próxima paragem como destino.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section together">
+    <div class="wrap">
+      <h2 class="rise">Viajar com outros, se quiseres</h2>
+      <div class="duo">
+        <div class="rise">
+          <h3><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></svg>Planos partilhados</h3>
+          <p>Editem o mesmo plano ao mesmo tempo, no telemóvel ou no browser. Cada um vê as alterações dos outros ao vivo.</p>
+        </div>
+        <div class="rise">
+          <h3><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm88,104a87.62,87.62,0,0,1-6.4,32.94l-44.7-27.49a15.92,15.92,0,0,0-6.24-2.23l-22.82-3.08a16.11,16.11,0,0,0-16,7.86h-8.72l-3.8-7.86a15.91,15.91,0,0,0-11-8.67l-8-1.73L96.14,104h16.71a16.06,16.06,0,0,0,7.73-2l12.25-6.76a16.62,16.62,0,0,0,3-2.14l26.91-24.34A15.93,15.93,0,0,0,166,49.1l-.36-.65A88.11,88.11,0,0,1,216,128ZM143.31,41.34,152,56.9,125.09,81.24,112.85,88H96.14a16,16,0,0,0-13.88,8l-8.73,15.23L63.38,84.19,74.32,58.32a87.87,87.87,0,0,1,69-17ZM40,128a87.53,87.53,0,0,1,8.54-37.8l11.34,30.27a16,16,0,0,0,11.62,10l21.43,4.61L96.74,143a16.09,16.09,0,0,0,14.4,9h1.48l-7.23,16.23a16,16,0,0,0,2.86,17.37l.14.14L128,205.94l-1.94,10A88.11,88.11,0,0,1,40,128Zm102.58,86.78,1.13-5.81a16.09,16.09,0,0,0-4-13.9,1.85,1.85,0,0,1-.14-.14L120,174.74,133.7,144l22.82,3.08,45.72,28.12A88.18,88.18,0,0,1,142.58,214.78Z"/></svg>A Comunidade Plan-ish</h3>
+          <p>Viagens de quem já as fez, com o GPS a confirmar. Copia uma para o teu planeamento e muda o que quiseres.</p>
+        </div>
+      </div>
+      <p class="note rise">Só estas duas partes usam uma conta da Comunidade. O resto do Plan-ish nunca precisa.</p>
+      <div class="ctas rise"><a class="btn ghost" href="https://jrafael-rep.github.io/plan-ish-community/">Explorar a Comunidade</a></div>
+    </div>
+  </section>
+
+  <section class="section private">
+    <div class="wrap">
+      <h2 class="rise">O que é teu fica contigo</h2>
+      <div class="grid">
+        <div class="item rise"><h3><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M228.92,49.69a8,8,0,0,0-6.86-1.45L160.93,63.52,99.58,32.84a8,8,0,0,0-5.52-.6l-64,16A8,8,0,0,0,24,56V200a8,8,0,0,0,9.94,7.76l61.13-15.28,61.35,30.68A8.15,8.15,0,0,0,160,224a8,8,0,0,0,1.94-.24l64-16A8,8,0,0,0,232,200V56A8,8,0,0,0,228.92,49.69ZM104,52.94l48,24V203.06l-48-24ZM40,62.25l48-12v127.5l-48,12Zm176,131.5-48,12V78.25l48-12Z"/></svg>As tuas viagens</h3><p>Ficam no telemóvel. Não há um servidor com os teus planos.</p></div>
+        <div class="item rise"><h3><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></svg>O percurso GPS</h3><p>Nunca sai do telemóvel, nem quando publicas uma viagem.</p></div>
+        <div class="item rise"><h3><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm88,104a87.56,87.56,0,0,1-20.41,56.28L71.72,60.4A88,88,0,0,1,216,128ZM40,128A87.56,87.56,0,0,1,60.41,71.72L184.28,195.6A88,88,0,0,1,40,128Z"/></svg>Anúncios e rastreio</h3><p>Nenhuns. Os teus dados não são vendidos nem partilhados.</p></div>
+        <div class="item rise"><h3><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M168,56a8,8,0,0,1,8-8h48a8,8,0,0,1,0,16H176A8,8,0,0,1,168,56Zm58.08,37.33a103.93,103.93,0,1,1-80.76-67.89,8,8,0,0,1-2.64,15.78A88.07,88.07,0,0,0,40,128a87.62,87.62,0,0,0,22.24,58.41A79.66,79.66,0,0,1,98.3,157.66a48,48,0,1,1,59.4,0,79.66,79.66,0,0,1,36.06,28.75A88,88,0,0,0,211,98.67a8,8,0,0,1,15.09-5.34ZM128,152a32,32,0,1,0-32-32A32,32,0,0,0,128,152Zm0,64a87.57,87.57,0,0,0,53.92-18.5,64,64,0,0,0-107.84,0A87.57,87.57,0,0,0,128,216Z"/></svg>Conta</h3><p>Não precisas. Só a Comunidade pede uma, e só se a quiseres usar.</p></div>
+      </div>
+      <p class="more rise"><a href="privacy.html">Ler a política de privacidade</a></p>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <div class="box rise">
+        <h2>Experimenta o Plan-ish</h2>
+        <p>Está em testes no Google Play. Pede acesso e instala-o como qualquer outra app, com atualizações automáticas.</p>
+        <div class="ctas">
+          <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.jrafa.planish" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M239.82,114.19,72,18.16a16,16,0,0,0-16.12,0A15.68,15.68,0,0,0,48,31.87V224.13a15.68,15.68,0,0,0,7.92,13.67,16,16,0,0,0,16.12,0l167.78-96a15.75,15.75,0,0,0,0-27.62ZM64,212.67V43.33L148.69,128Zm96-73.36,18.92,18.92-88.5,50.66ZM90.4,47.1l88.53,50.67L160,116.69ZM193.31,150l-22-22,22-22,38.43,22Z"/></svg>Obter no Google Play</a>
+          <a class="btn ghost" href="mailto:planish.app@outlook.com?subject=Acesso%20aos%20testes%20do%20Plan-ish">Pedir acesso</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
+
+<footer>
+  <div class="wrap">
+    <span>Plan-ish, por Jrafa</span>
+    <a href="mailto:planish.app@outlook.com">planish.app@outlook.com</a>
+    <a href="privacy.html">Privacidade</a>
+    <a class="coffee" href="https://buymeacoffee.com/planish" rel="noopener"><svg class="icon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M80,56V24a8,8,0,0,1,16,0V56a8,8,0,0,1-16,0Zm40,8a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,120,64Zm32,0a8,8,0,0,0,8-8V24a8,8,0,0,0-16,0V56A8,8,0,0,0,152,64Zm96,56v8a40,40,0,0,1-37.51,39.91,96.59,96.59,0,0,1-27,40.09H208a8,8,0,0,1,0,16H32a8,8,0,0,1,0-16H56.54A96.3,96.3,0,0,1,24,136V88a8,8,0,0,1,8-8H208A40,40,0,0,1,248,120ZM200,96H40v40a80.27,80.27,0,0,0,45.12,72h69.76A80.27,80.27,0,0,0,200,136Zm32,24a24,24,0,0,0-16-22.62V136a95.78,95.78,0,0,1-1.2,15A24,24,0,0,0,232,128Z"/></svg>Paga-me um café</a>
+  </div>
+</footer>
+
+<script>
+  // Aparecer ao entrar no ecrã. Sem IntersectionObserver, ou com "reduzir movimento", aparece tudo já.
+  (function () {
+    var items = document.querySelectorAll('.rise');
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  })();
+</script>
 </body>
 </html>
