@@ -1,7 +1,8 @@
 /*
   Plan-ish, página de apresentação.
-  Paleta "Pinhal": escuros com tom de pinhal e um só acento, o verde da app.
-  É também o tema por defeito da app (src/ui/themes/index.ts, "pinhal").
+  Paleta "Brisa": claro por defeito, em azuis e verdes; "Brisa noite" com o
+  botão do topo (data-theme="dark"). A mesma do site da Comunidade e do tema
+  por defeito da app (src/ui/themes/index.ts, "brisa" e "brisa-noite").
   Letra: Figtree (SIL OFL 1.1, assets/fonts/OFL.txt). Ícones: Phosphor (MIT).
 */
 @font-face {
@@ -13,38 +14,37 @@
 }
 
 :root {
-  color-scheme: dark light;
-  --bg: #0A120F;
-  --bg-2: #0D1713;
-  --surface: #111B17;
-  --raised: #18261F;
-  --line: #25382E;
-  --fg: #ECF3EF;
-  --muted: #9DB0A6;
-  --accent: #3DDC97;
-  --accent-soft: rgba(61, 220, 151, .12);
-  --accent-ink: #04140C;
-  --glow: rgba(61, 220, 151, .16);
-  --shadow: 0 30px 60px -30px rgba(0, 0, 0, .7);
+  color-scheme: light;
+  --bg: #F2F7F8;
+  --bg-2: #E8F3F2;
+  --surface: #FFFFFF;
+  --raised: #E7F1F3;
+  --line: #CFE0E4;
+  --fg: #0C1F2A;
+  --muted: #465F6C;
+  --accent: #0A717B;
+  --accent-soft: rgba(10, 113, 123, .09);
+  --accent-ink: #FFFFFF;
+  --glow: rgba(61, 220, 151, .22);
+  --shadow: 0 30px 60px -32px rgba(12, 31, 42, .32);
   --r: 20px;
   --r-sm: 14px;
   --font: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #F3F7F4;
-    --bg-2: #EAF1EC;
-    --surface: #FFFFFF;
-    --raised: #E3ECE6;
-    --line: #D0DDD5;
-    --fg: #0D1A14;
-    --muted: #4B5E54;
-    --accent: #0B6E47;
-    --accent-soft: rgba(11, 110, 71, .09);
-    --accent-ink: #F2FBF6;
-    --glow: rgba(11, 110, 71, .12);
-    --shadow: 0 30px 60px -32px rgba(13, 40, 28, .35);
-  }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0E1B26;
+  --bg-2: #122230;
+  --surface: #152634;
+  --raised: #1D3242;
+  --line: #2B4659;
+  --fg: #EAF3F8;
+  --muted: #A2B9C8;
+  --accent: #45D1D0;
+  --accent-soft: rgba(69, 209, 208, .12);
+  --accent-ink: #04191A;
+  --glow: rgba(69, 209, 208, .15);
+  --shadow: 0 30px 60px -30px rgba(0, 0, 0, .6);
 }
 
 * { box-sizing: border-box; }
@@ -73,6 +73,13 @@ p { margin: 0; }
 .top nav a { color: var(--muted); text-decoration: none; font-weight: 600; font-size: .95rem; padding: .5rem .75rem; border-radius: 999px; white-space: nowrap; }
 .top nav a:hover { color: var(--fg); background: var(--raised); }
 @media (max-width: 34rem) { .top nav .wide { display: none; } }
+.mode { display: grid; place-items: center; width: 44px; height: 44px; margin-left: .15rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--fg); cursor: pointer; transition: background-color .2s, transform .25s cubic-bezier(.16, 1, .3, 1); }
+.mode:hover { background: var(--raised); }
+.mode:active { transform: scale(.94); }
+.mode .icon { width: 20px; height: 20px; }
+.mode .to-light, :root[data-theme="dark"] .mode .to-dark { display: none; }
+:root[data-theme="dark"] .mode .to-light { display: contents; }
+.mode .to-dark { display: contents; }
 
 /* ---------------------------------------------------------- botões */
 .btn { display: inline-flex; align-items: center; gap: .55rem; min-height: 52px; padding: 0 1.4rem; border-radius: 999px; font-weight: 700; font-size: 1rem; text-decoration: none; white-space: nowrap; border: 1px solid transparent; transition: transform .25s cubic-bezier(.16, 1, .3, 1), background-color .2s, border-color .2s; }
@@ -121,6 +128,28 @@ p { margin: 0; }
 .tile .icon { width: 30px; height: 30px; color: var(--accent); margin-bottom: .4rem; }
 .tile .shot { margin-top: auto; border-radius: var(--r-sm) var(--r-sm) 0 0; border: 1px solid var(--line); border-bottom: 0; width: 100%; height: 15rem; object-fit: cover; object-position: top; margin-bottom: -1.6rem; }
 .tile .card { margin-top: 1.2rem; border-radius: var(--r-sm); border: 1px solid var(--line); width: 100%; height: auto; }
+/* Telemóvel: as seis funcionalidades num carrossel horizontal, cada cartão com
+   uma imagem só, em vez de uma coluna que nunca mais acaba. */
+@media (max-width: 47.99rem) {
+  .section { padding: 4.5rem 0; }
+  .bento {
+    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%; gap: .75rem;
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin: 2rem -1.25rem 0; padding: 0 1.25rem .25rem; scroll-padding-inline: 1.25rem;
+  }
+  .bento::-webkit-scrollbar { display: none; }
+  .tile { scroll-snap-align: start; height: 26rem; padding: 1.35rem; }
+  .tile h3 { font-size: 1.2rem; }
+  .tile .shot { height: 12.5rem; margin-bottom: -1.35rem; }
+  .tall .phone-in { display: none; }
+  .tall .card { margin-top: auto; }
+  .dots { display: flex; justify-content: center; gap: .4rem; margin-top: 1.1rem; }
+  .dots i { width: 7px; height: 7px; border-radius: 999px; background: var(--line); transition: width .3s cubic-bezier(.16, 1, .3, 1), background-color .3s; }
+  .dots i.on { width: 22px; background: var(--accent); }
+  .drive .pair img:last-child { display: none; }
+  .drive .pair img { width: min(230px, 64%); }
+}
+@media (min-width: 48rem) { .dots { display: none; } }
 .tile.tint { background: linear-gradient(160deg, var(--accent-soft), transparent 70%), var(--surface); }
 .tile.deep { background: radial-gradient(120% 90% at 100% 0%, var(--glow), transparent 60%), var(--raised); }
 .tall .phone-in { margin: 1.5rem auto -1.6rem; width: min(260px, 80%); height: auto; aspect-ratio: 540 / 1213; object-fit: cover; object-position: top; border-radius: 26px 26px 0 0; border: 1px solid var(--line); border-bottom: 0; }
