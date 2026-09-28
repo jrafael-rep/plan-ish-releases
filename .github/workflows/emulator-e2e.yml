@@ -1,0 +1,183 @@
+# Runs Plan-ish on a real Android emulator and drives it like a person would:
+# taps, typing, the Files app, the share sheet, a moving GPS, the Community.
+#
+# Why here: GitHub's Linux runners have KVM, so the emulator runs at full
+# speed, and minutes are free for this public repository. The source stays
+# private; the APK is built on the runner, used, and thrown away. It is never
+# uploaded. What is uploaded, for debugging, is what the run saw: videos,
+# screenshots, screen trees, logcat, Maestro's own logs and the app's debug
+# events. All data in the run is synthetic, and secrets are redacted from the
+# text logs before upload.
+#
+# The Community part links the app to a test account. The link is confirmed
+# from the database by whoever runs this while the job waits (run.sh prints
+# E2E_LINK_PENDING); no password or token is stored anywhere.
+
+name: Plan-ish → emulador (e2e)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Triptracker branch, tag or commit to test
+        required: true
+        default: claude/geres-trip-tracker-app-y1coxy
+        type: string
+      link_wait_min:
+        description: Minutes to wait for the Community link to be confirmed (0 skips the linked flows)
+        required: true
+        default: '45'
+        type: string
+      only:
+        description: Run only flows whose name contains this (empty runs all)
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: emulator-e2e
+  cancel-in-progress: false
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    env:
+      PLANISH_DISTRIBUTION: play
+      EXPO_PUBLIC_GEO_API_KEY: ${{ secrets.GEO_API_KEY }}
+      OUT: ${{ github.workspace }}/e2e-out
+    steps:
+      - name: Check out Triptracker (private)
+        uses: actions/checkout@v4
+        with:
+          repository: jrafael-rep/Triptracker
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.TRIPTRACKER_READ_TOKEN }}
+          persist-credentials: false
+
+      - name: Which commit
+        id: sha
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git log -1 --format='Testing %h %s'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      # The same commit gives the same APK: build it once, reuse it on reruns.
+      # The cache is private to this repository's workflows.
+      - name: Reuse the APK built for this commit
+        id: apk-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/planish-apk
+          key: planish-e2e-apk-${{ steps.sha.outputs.sha }}
+
+      - name: Install Android SDK packages
+        if: steps.apk-cache.outputs.cache-hit != 'true'
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0' 'ndk;27.1.12297006' > /dev/null
+
+      - uses: gradle/actions/setup-gradle@v4
+        if: steps.apk-cache.outputs.cache-hit != 'true'
+
+      # A release build (JS bundled, no Metro), signed with the debug key since
+      # no upload key is given, and only for the emulator's x86_64.
+      - name: Build the APK
+        if: steps.apk-cache.outputs.cache-hit != 'true'
+        run: |
+          set -euo pipefail
+          npx expo prebuild --platform android --clean --no-install
+          (cd android && ./gradlew assembleRelease -x lint --no-daemon -PreactNativeArchitectures=x86_64)
+          mkdir -p ~/planish-apk
+          cp android/app/build/outputs/apk/release/app-release.apk ~/planish-apk/planish.apk
+          ls -l ~/planish-apk
+
+      - name: Make the test files
+        run: |
+          E2E_FIXTURES_OUT=e2e/out/fixtures npx jest __tests__/e2eFixtures.test.ts --silent
+          ls -l e2e/out/fixtures
+
+      - name: Install Maestro
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run on the emulator
+        id: run
+        uses: reactivecircus/android-emulator-runner@v2
+        env:
+          APK: /home/runner/planish-apk/planish.apk
+          LINK_WAIT_MIN: ${{ inputs.link_wait_min }}
+          E2E_ONLY: ${{ inputs.only }}
+        with:
+          api-level: 34
+          target: google_apis
+          arch: x86_64
+          profile: pixel_6
+          ram-size: 4096M
+          disk-size: 6000M
+          emulator-boot-timeout: 900
+          disable-animations: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back emulated
+          script: bash e2e/run.sh
+
+      # Secrets never belong in an uploaded log, even masked ones.
+      - name: Redact the logs
+        if: always()
+        env:
+          KEY: ${{ secrets.GEO_API_KEY }}
+        run: |
+          [ -d "$OUT" ] || exit 0
+          find "$OUT" -type f \( -name '*.txt' -o -name '*.log' -o -name '*.xml' -o -name '*.json' -o -name '*.tsv' \) -print0 |
+            xargs -0 -r perl -pi -e 'BEGIN { $k = $ENV{KEY} } s/\Q$k\E/<geo-key>/g if length $k'
+          find "$OUT" -type f -name 'logcat*' -print0 | xargs -0 -r perl -pi -e 's/\b[0-9a-f]{64}\b/<hex64>/g'
+          find "$OUT" -name '*.apk' -delete
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "## Plan-ish no emulador"
+            echo
+            echo "Commit \`${{ steps.sha.outputs.sha }}\`"
+            echo
+            if [ -f "$OUT/summary.tsv" ]; then
+              echo "| Fluxo | Resultado | Notas |"
+              echo "|---|---|---|"
+              awk -F'\t' '{ printf "| %s | %s | %s |\n", $1, $2, $3 }' "$OUT/summary.tsv"
+            else
+              echo "Sem summary.tsv: a corrida parou antes dos fluxos."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload what the run saw
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-${{ github.run_number }}
+          path: e2e-out
+          retention-days: 7
+          if-no-files-found: warn
