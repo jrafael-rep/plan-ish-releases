@@ -146,16 +146,108 @@ jobs:
           if grep -q REQUEST_INSTALL_PACKAGES "$manifest"; then echo "::error::Play build asks to install packages"; exit 1; fi
           echo "versionName $(node -p "require('./app.json').expo.version") · versionCode $PLANISH_VERSION_CODE"
 
+      # Envio próprio, sem ação de terceiros: o bundle e as notas de versão vão
+      # na mesma edição, e antes de a confirmar lê-se de volta da Play o que lá
+      # ficou. A ação r0adkll aceitava `whatsNewDirectory` e as notas não
+      # chegavam, sem aviso nenhum no log. Aqui, se faltarem, o passo falha.
       - name: Send to Google Play
         if: inputs.track != 'check'
-        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
-        with:
-          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
-          packageName: com.jrafa.planish
-          releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
-          track: ${{ inputs.track }}
-          status: completed
-          whatsNewDirectory: play/whatsnew
+        shell: bash
+        env:
+          SERVICE_ACCOUNT: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          TRACK: ${{ inputs.track }}
+        run: |
+          set -euo pipefail
+          aab=android/app/build/outputs/bundle/release/app-release.aab
+          api=https://androidpublisher.googleapis.com/androidpublisher/v3/applications/com.jrafa.planish
+          upload=https://androidpublisher.googleapis.com/upload/androidpublisher/v3/applications/com.jrafa.planish
+
+          # As notas: um ficheiro whatsnew-<língua> por língua, até 500 caracteres.
+          notes="$(python3 - <<'PY'
+          import json, os, re
+          d = 'play/whatsnew'
+          out = []
+          for f in sorted(os.listdir(d)):
+              m = re.fullmatch(r'whatsnew-([a-z]{2,3}-[A-Z]{2})', f)
+              if not m:
+                  continue
+              text = open(os.path.join(d, f), encoding='utf-8').read().strip()
+              if len(text) > 500:
+                  raise SystemExit(f'{f}: {len(text)} caracteres; a Play aceita 500')
+              out.append({'language': m.group(1), 'text': text})
+          if not out:
+              raise SystemExit('Sem notas de versão em play/whatsnew')
+          print(json.dumps(out, ensure_ascii=False))
+          PY
+          )"
+          echo "Notas de versão a enviar:"
+          python3 -c 'import json,sys
+          for n in json.loads(sys.argv[1]):
+              lang, text = n["language"], n["text"]
+              print(f"--- {lang} ({len(text)} caracteres)")
+              print(text)' "$notes"
+
+          # Um token de acesso a partir da conta de serviço (JWT assinado com openssl).
+          umask 077
+          printf '%s' "$SERVICE_ACCOUNT" > sa.json
+          trap 'rm -f sa.json sa.pem' EXIT
+          email="$(python3 -c 'import json; print(json.load(open("sa.json"))["client_email"])')"
+          python3 -c 'import json; open("sa.pem","w").write(json.load(open("sa.json"))["private_key"])'
+          b64url() { openssl base64 -e -A | tr '+/' '-_' | tr -d '='; }
+          now="$(date +%s)"
+          header="$(printf '{"alg":"RS256","typ":"JWT"}' | b64url)"
+          claims="$(printf '{"iss":"%s","scope":"https://www.googleapis.com/auth/androidpublisher","aud":"https://oauth2.googleapis.com/token","iat":%d,"exp":%d}' "$email" "$now" "$((now + 3000))" | b64url)"
+          signature="$(printf '%s.%s' "$header" "$claims" | openssl dgst -sha256 -sign sa.pem | b64url)"
+          rm -f sa.pem sa.json
+          token="$(curl -sS --fail-with-body https://oauth2.googleapis.com/token \
+            -d grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer \
+            -d assertion="$header.$claims.$signature" \
+            | python3 -c 'import json,sys; print(json.load(sys.stdin)["access_token"])')"
+          echo "::add-mask::$token"
+          call() { curl -sS --fail-with-body -H "Authorization: Bearer $token" "$@"; }
+          field() { python3 -c "import json,sys; print(json.load(sys.stdin)[\"$1\"])"; }
+
+          edit="$(call -X POST "$api/edits" -H 'Content-Type: application/json' -d '{}' | field id)"
+          echo "Edição $edit"
+
+          version="$(call -X POST "$upload/edits/$edit/bundles?uploadType=media" \
+            -H 'Content-Type: application/octet-stream' --data-binary @"$aab" | field versionCode)"
+          if [ "$version" != "$PLANISH_VERSION_CODE" ]; then
+            echo "::error::A Play recebeu o versionCode $version; esperava $PLANISH_VERSION_CODE"
+            exit 1
+          fi
+          echo "Bundle enviado: versionCode $version"
+
+          name="$(node -p "require('./app.json').expo.version") ($version)"
+          body="$(python3 - "$TRACK" "$version" "$name" "$notes" <<'PY'
+          import json, sys
+          track, version, name, notes = sys.argv[1:]
+          print(json.dumps({'track': track, 'releases': [{
+              'name': name, 'versionCodes': [version], 'status': 'completed',
+              'releaseNotes': json.loads(notes)}]}, ensure_ascii=False))
+          PY
+          )"
+          call -X PUT "$api/edits/$edit/tracks/$TRACK" \
+            -H 'Content-Type: application/json; charset=utf-8' --data-binary "$body" > /dev/null
+
+          # Lido de volta antes de confirmar: se as notas não estiverem lá, não se envia.
+          call "$api/edits/$edit/tracks/$TRACK" | python3 -c '
+          import json, sys
+          version, expected = sys.argv[1], len(json.loads(sys.argv[2]))
+          track = json.load(sys.stdin)
+          mine = [r for r in track.get("releases", []) if version in r.get("versionCodes", [])]
+          if not mine:
+              raise SystemExit(f"A faixa não tem o versionCode {version}")
+          got = mine[0].get("releaseNotes", [])
+          release = mine[0]
+          langs = ", ".join(n["language"] for n in got) or "nenhuma"
+          print("Na faixa", track["track"], ":", release.get("name"), "·", release.get("status"), "· notas em", langs)
+          if len(got) != expected:
+              raise SystemExit(f"A Play tem {len(got)} notas de versão; esperava {expected}")
+          ' "$version" "$notes"
+
+          call -X POST "$api/edits/$edit:commit" > /dev/null
+          echo "Enviado para a faixa $TRACK: $name, com notas de versão."
 
       - name: Remove the key from the runner
         if: always()
