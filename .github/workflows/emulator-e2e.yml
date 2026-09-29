@@ -81,14 +81,17 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
-      # The same commit gives the same APK: build it once, reuse it on reruns.
+      # The same app gives the same APK: build it once, reuse it until the app
+      # changes. The key is what goes into the APK (everything but tests,
+      # docs, store notes and tooling), not the commit, so a commit that only
+      # fixes an e2e flow or a unit test reuses the APK already built.
       # The cache is private to this repository's workflows.
-      - name: Reuse the APK built for this commit
+      - name: Reuse the APK built for this app
         id: apk-cache
         uses: actions/cache@v4
         with:
           path: ~/planish-apk
-          key: planish-e2e-apk-${{ steps.sha.outputs.sha }}
+          key: planish-e2e-apk-v2-${{ hashFiles('**', '!.git/**', '!node_modules/**', '!e2e/**', '!__tests__/**', '!docs/**', '!play/**', '!.claude/**', '!.github/**', '!**/*.md') }}
 
       - name: Install Android SDK packages
         if: steps.apk-cache.outputs.cache-hit != 'true'
@@ -97,14 +100,42 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         if: steps.apk-cache.outputs.cache-hit != 'true'
 
+      # The C++ half of the build (React Native, Reanimated, the other native
+      # modules) is most of its time and the same from run to run: ccache
+      # keeps the compiled objects. CMake picks the launcher up from the
+      # environment. Kotlin/Java come from Gradle's own build cache, which
+      # lives in the Gradle home that setup-gradle saves.
+      - name: Install ccache
+        if: steps.apk-cache.outputs.cache-hit != 'true'
+        run: sudo apt-get install -y -qq ccache > /dev/null
+
+      - name: Reuse compiled C++ (ccache)
+        if: steps.apk-cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ccache
+          key: planish-ccache-x86_64-${{ hashFiles('package-lock.json') }}-${{ github.run_id }}
+          restore-keys: |
+            planish-ccache-x86_64-${{ hashFiles('package-lock.json') }}-
+            planish-ccache-x86_64-
+
       # A release build (JS bundled, no Metro), signed with the debug key since
       # no upload key is given, and only for the emulator's x86_64.
       - name: Build the APK
         if: steps.apk-cache.outputs.cache-hit != 'true'
+        env:
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
+          CCACHE_DIR: /home/runner/.cache/ccache
+          CCACHE_BASEDIR: ${{ github.workspace }}
+          CCACHE_COMPILERCHECK: content
+          CCACHE_MAXSIZE: 2G
         run: |
           set -euo pipefail
+          ccache --zero-stats > /dev/null
           npx expo prebuild --platform android --clean --no-install
-          (cd android && ./gradlew assembleRelease -x lint --no-daemon -PreactNativeArchitectures=x86_64)
+          (cd android && ./gradlew assembleRelease -x lint --no-daemon --build-cache -PreactNativeArchitectures=x86_64)
+          ccache --show-stats | sed -n '1,12p'
           mkdir -p ~/planish-apk
           cp android/app/build/outputs/apk/release/app-release.apk ~/planish-apk/planish.apk
           ls -l ~/planish-apk

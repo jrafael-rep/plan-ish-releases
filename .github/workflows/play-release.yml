@@ -99,6 +99,23 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
+      # The C++ half of the build is the same from release to release: ccache
+      # keeps the compiled objects (all four ABIs here, a cache of its own).
+      # Kotlin/Java come from Gradle's build cache, in the Gradle home that
+      # setup-gradle saves. Both key on content, so a changed source is
+      # always compiled again.
+      - name: Install ccache
+        run: sudo apt-get install -y -qq ccache > /dev/null
+
+      - name: Reuse compiled C++ (ccache)
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ccache
+          key: planish-ccache-release-${{ hashFiles('package-lock.json') }}-${{ github.run_id }}
+          restore-keys: |
+            planish-ccache-release-${{ hashFiles('package-lock.json') }}-
+            planish-ccache-release-
+
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
@@ -132,7 +149,17 @@ jobs:
 
       - name: Build the app bundle
         working-directory: android
-        run: ./gradlew bundleRelease -x lint --no-daemon
+        env:
+          CMAKE_C_COMPILER_LAUNCHER: ccache
+          CMAKE_CXX_COMPILER_LAUNCHER: ccache
+          CCACHE_DIR: /home/runner/.cache/ccache
+          CCACHE_BASEDIR: ${{ github.workspace }}
+          CCACHE_COMPILERCHECK: content
+          CCACHE_MAXSIZE: 3G
+        run: |
+          ccache --zero-stats > /dev/null
+          ./gradlew bundleRelease -x lint --no-daemon --build-cache
+          ccache --show-stats | sed -n '1,12p'
 
       - name: Check what was built
         shell: bash
