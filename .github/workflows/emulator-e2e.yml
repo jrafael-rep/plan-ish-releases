@@ -129,6 +129,9 @@ jobs:
           CCACHE_DIR: /home/runner/.cache/ccache
           CCACHE_BASEDIR: ${{ github.workspace }}
           CCACHE_COMPILERCHECK: content
+          # React Native builds with precompiled headers; without this ccache
+          # skips almost every call ("Could not use precompiled header").
+          CCACHE_SLOPPINESS: pch_defines,time_macros,include_file_mtime,include_file_ctime
           CCACHE_MAXSIZE: 2G
         run: |
           set -euo pipefail
