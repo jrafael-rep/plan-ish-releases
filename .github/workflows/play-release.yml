@@ -159,7 +159,7 @@ jobs:
         run: |
           ccache --zero-stats > /dev/null
           ./gradlew bundleRelease -x lint --no-daemon --build-cache
-          ccache --show-stats | sed -n '1,12p'
+          ccache --show-stats --verbose | sed -n '1,40p'
 
       - name: Check what was built
         shell: bash

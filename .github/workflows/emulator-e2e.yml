@@ -135,7 +135,7 @@ jobs:
           ccache --zero-stats > /dev/null
           npx expo prebuild --platform android --clean --no-install
           (cd android && ./gradlew assembleRelease -x lint --no-daemon --build-cache -PreactNativeArchitectures=x86_64)
-          ccache --show-stats | sed -n '1,12p'
+          ccache --show-stats --verbose | sed -n '1,40p'
           mkdir -p ~/planish-apk
           cp android/app/build/outputs/apk/release/app-release.apk ~/planish-apk/planish.apk
           ls -l ~/planish-apk
